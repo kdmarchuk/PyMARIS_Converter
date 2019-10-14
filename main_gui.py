@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QAbstractItemView, QMes
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from pygellan.magellan_data import MagellanDataset
+import pathlib
 #import pyqtgraph as pg
 
 from PyMARIS_Converter_ui import Ui_MainWindow
@@ -27,16 +28,19 @@ class MainView(QMainWindow):
         self._ui.reset_space_pushButton.clicked.connect(self.refresh_space)
 
     def get_working_directory(self):
-        magellan_directory = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        # Get the string version
+        magellan_directory_str = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        # Convert to path version for OS compatibility
+        magellan_directory_path = pathlib.Path(magellan_directory_str)
         try:
-            magellan = MagellanDataset(magellan_directory)
+            magellan = MagellanDataset(magellan_directory_path)
         except Exception:
             print('Not a Magellan Dataset')
             return
-        print(magellan_directory)
-        self._ui.magellan_dataset_listWidget.addItem(magellan_directory)
-        self.store_magellan_metadata(magellan_directory)
-        print(self.magellan_dataset_dictionary[magellan_directory]["positions"])
+        print(magellan_directory_path)
+        self._ui.magellan_dataset_listWidget.addItem(magellan_directory_str)
+        self.store_magellan_metadata(magellan_directory_str)
+        print(self.magellan_dataset_dictionary[magellan_directory_str]["positions"])
 
     def remove_working_directory(self):
         self._ui.magellan_dataset_listWidget.takeItem(self._ui.magellan_dataset_listWidget.currentRow())
@@ -107,6 +111,11 @@ class MainView(QMainWindow):
         # Time tab
         self._ui.first_frame_spinBox.setValue(1)
         self._ui.final_frame_spinBox.setValue(self.magellan_dataset_dictionary[active_magellan]['frames'])
+
+        # file name
+        file_path = pathlib.PurePath(self.magellan_dataset_dictionary[active_magellan]['directory'])
+        file_name = file_path.parts[-1]
+        self._ui.save_name_lineEdit.setText(file_name)
 
     def refresh_space(self):
         # Get highlighted entry

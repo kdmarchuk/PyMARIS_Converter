@@ -2,10 +2,14 @@ import numpy as np
 import h5py
 from write_functions import write_attribute
 from pygellan.magellan_data import MagellanDataset
-
+"""
 data_path = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2'
 save_path = 'E:\\Data\\TestData\\MagellanTest'
-save_name = 'E:\\Data\\TestData\\MagellanTest\\test.ims'
+save_name = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2\\test.ims'
+"""
+data_path = 'E:\\Data\\SPIM\\LV_Wedge_3umStep_1'
+save_path = 'E:\\Data\\SPIM'
+save_name = 'E:\\Data\\SPIM\\LV_Wedge_3umStep_test.ims'
 
 magellan = MagellanDataset(data_path)
 
@@ -127,10 +131,20 @@ for t in range(num_frames):
         write_attribute(channel_group_data, 'ImageSizeZ', str(num_slices))
 
         data_temp = f.create_dataset("DataSet/ResolutionLevel 0" + time_name_string + channel_name_string + "/Data",
+                                     (1, total_height, total_width), chunks=(8, 256, 256),
+                                     maxshape=(num_slices, total_height, total_width),compression="gzip",
+                                     compression_opts=2, dtype='uint16')
+        data_temp.write_direct(np.array(all_data[t, c, 1]))
+        for z in range(num_slices - 1):
+            data_temp.resize(data_temp.shape[0] + 1, axis=0)
+            data_temp[z + 1, :, :] = np.array(all_data[t, c, z + 1])
+            print('T:' + str(t) + ', C:' + str(c) + ', Z:' + str(z))
+        """
+        data_temp = f.create_dataset("DataSet/ResolutionLevel 0" + time_name_string + channel_name_string + "/Data",
                                      (num_slices, total_height, total_width), chunks=(8, 256, 256), compression="gzip",
                                      compression_opts=2, dtype='uint16')
         data_temp.write_direct(np.array(all_data[t, c]))
-        """
+        
         data_temp = f.create_dataset("DataSet/ResolutionLevel 0" + time_name_string + channel_name_string + "/Data",
                                      (272, 5888, 4096), chunks=(8, 256, 256), compression="gzip",
                                      compression_opts=2, dtype='uint16')
@@ -139,5 +153,4 @@ for t in range(num_frames):
         histogram_temp = f.create_dataset("DataSet/ResolutionLevel 0" + time_name_string + channel_name_string +
                                           "/Histogram", (256,), dtype='uint64')
 
-        print(time_name_string + channel_name_string)
 print('COMPLETE')
