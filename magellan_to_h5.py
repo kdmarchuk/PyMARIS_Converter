@@ -7,9 +7,9 @@ data_path = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2
 save_path = 'E:\\Data\\TestData\\MagellanTest'
 save_name = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2\\test.ims'
 """
-data_path = 'E:\\Data\\SPIM\\LV_Wedge_3umStep_1'
+data_path = 'E:\\Data\\SPIM\\Cortex_3umStep_1'
 save_path = 'E:\\Data\\SPIM'
-save_name = 'E:\\Data\\SPIM\\LV_Wedge_3umStep_test.ims'
+save_name = 'E:\\Data\\SPIM\\Cortex_3umStep_1_test.ims'
 
 magellan = MagellanDataset(data_path)
 
