@@ -20,7 +20,7 @@
       <x>70</x>
       <y>10</y>
       <width>641</width>
-      <height>181</height>
+      <height>161</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -61,7 +61,7 @@
        <x>0</x>
        <y>30</y>
        <width>641</width>
-       <height>141</height>
+       <height>131</height>
       </rect>
      </property>
     </widget>
@@ -70,16 +70,16 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>210</y>
+      <y>180</y>
       <width>641</width>
-      <height>281</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <widget class="QTabWidget" name="subsample_tabWidget">
      <property name="geometry">
@@ -87,7 +87,7 @@
        <x>40</x>
        <y>10</y>
        <width>561</width>
-       <height>211</height>
+       <height>191</height>
       </rect>
      </property>
      <property name="currentIndex">
@@ -556,7 +556,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>240</y>
+       <y>210</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -570,22 +570,22 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>510</y>
-      <width>631</width>
-      <height>301</height>
+      <y>440</y>
+      <width>641</width>
+      <height>261</height>
      </rect>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <widget class="QPushButton" name="run_pushButton">
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>250</y>
+       <y>210</y>
        <width>101</width>
        <height>41</height>
       </rect>
@@ -612,17 +612,17 @@
       <rect>
        <x>0</x>
        <y>50</y>
-       <width>631</width>
-       <height>181</height>
+       <width>641</width>
+       <height>151</height>
       </rect>
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="info1_label">
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>810</y>
+      <y>800</y>
       <width>351</width>
       <height>20</height>
      </rect>
@@ -634,7 +634,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="info3_label">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -644,13 +644,13 @@
      </rect>
     </property>
     <property name="text">
-     <string>Kyle Marchuk - Biological Imaging Development CoLab</string>
+     <string> Biological Imaging Development CoLab</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="info4_label">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -661,6 +661,56 @@
     </property>
     <property name="text">
      <string>University of California, San Fancisco 2019</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="info2_label">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>810</y>
+      <width>351</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Henry Pinkard and Kyle Marchuk</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>740</y>
+      <width>451</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="file_progress_label">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>720</y>
+      <width>421</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Progress:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

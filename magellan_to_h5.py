@@ -132,7 +132,7 @@ for t in range(num_frames):
 
         data_temp = f.create_dataset("DataSet/ResolutionLevel 0" + time_name_string + channel_name_string + "/Data",
                                      (1, total_height, total_width), chunks=(8, 256, 256),
-                                     maxshape=(num_slices, total_height, total_width),compression="gzip",
+                                     maxshape=(num_slices, total_height, total_width), compression="gzip",
                                      compression_opts=2, dtype='uint16')
         data_temp.write_direct(np.array(all_data[t, c, 1]))
         for z in range(num_slices - 1):

@@ -8,9 +8,19 @@ import matplotlib.pyplot as plt
 data_path = 'E:\\Data\\TestData\\MagellanTest\\PyMARIS_test_z10_c4_t3_1'
 
 magellan = MagellanDataset(data_path)
-channel_list = magellan.get_channel_names()
+#channel_list = magellan.get_channel_names()
 
-print(channel_list)
+num_frames = magellan.get_num_frames()
+time_list = []
+for t in range(num_frames):
+    metadata_dictionary = magellan.read_metadata(t_index=t)
+    time_list.append(metadata_dictionary['TimeReceivedByCore'])
+print(time_list)
+
+#'TimeReceivedByCore': '2019-10-15 13:48:14.036429'
+#'TimeReceivedByCore': '2019-10-15 13:50:55.130478'
+
+#rint(channel_list)
 
 #img, img_metadata = magellan.read_image(channel_index=0, z_index=0, pos_index=0, read_metadata=True)
 #print(img_metadata)
