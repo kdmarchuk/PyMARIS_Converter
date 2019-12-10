@@ -1,0 +1,83 @@
+@charset "utf-8";
+/* CSS Document */
+
+#menutop
+{
+ display: block;
+ width: 1000px;
+ height: 23px;
+ background: white;
+ border-bottom: solid 1px #dfdfdf;
+ webkit-box-shadow: 3px 3px 5px #9a9b9c;
+ box-shadow: 3px 3px 5px 9a9b9c;
+}
+
+#menutop a
+{
+ font-family: 'Arimo', sans-serif;
+ font-size: 11px;
+ text-decoration: none;
+ color: #e98300;}
+
+#dnn_Username_registerLink
+{
+	color: #002d3f !important;
+	margin-left: 10px;
+}
+
+#dnn_LOGIN1_loginLink
+{
+	margin-right: -10px !important;
+}
+
+#menutop img
+{
+ margin-top: 3px;
+ float: right;
+ margin-right: 9px; 
+}
+
+#rightmenutop
+{
+ float: right;
+ width:600px;
+ display: inline-block;
+ /*text-align: right;
+ padding-right: 10px;
+ box-shadow: 3px 3px 5px #9A9B9C;*/
+}
+
+#rightmenutop a
+{
+ margin-left: 5px;
+ margin-right: 5px;
+}
+
+#rightmenutop a.nolink
+{
+ margin-left: -10px;
+ margin-right: 12px;
+ color: #4d4f53;
+}
+
+#rightmenutop a.signinlink
+{
+ margin-left: -10px;
+ margin-right: 20px;
+ color: #E98300;
+}
+
+.LOGIN1
+{
+	margin-right: 1px !important;
+}
+
+.searchbutton
+{
+float: right;	
+margin-top: 2px;
+margin-right: 10px;
+border-top: solid 1px #9a9b9c;
+border-right: solid 1px #9a9b9c;
+border-bottom: solid 1px #9a9b9c;
+}

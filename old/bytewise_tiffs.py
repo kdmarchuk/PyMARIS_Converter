@@ -3,7 +3,7 @@ import base64
 
 import time
 
-tiff_file = 'C:\\Users\\Kyle\\Desktop\\test_4\\Full resolution\\test_MagellanStack.tif'
+tiff_file = 'C:\\Users...\\test_MagellanStack.tif'
 """
 f = open(tiff_file, "r")
 #str = f.read().decode('utf-16-le')

@@ -1,0 +1,227 @@
+.right
+{
+	float: right;
+}
+
+.left
+{
+	float: left;
+}
+
+.clear
+{
+	clear: both;
+}
+
+.learningMenuTable
+{
+	color: #595959;
+	text-align: -webkit-auto;
+	font-size: 12px;
+	border-collapse: collapse;
+	font-family: 'lucida sans unicode', 'lucida grande', sans-serif;
+	width: 460px !important;
+	border-spacing: 0;
+}
+
+.learningMenuTableHead
+{
+	padding: 10px 8px !important;
+	vertical-align: top;
+	font-size: 14px;
+	color: #002d3f;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #e98300;
+}
+
+.learningMenuTableRow
+{
+	line-height: 16px !important;
+}
+
+	.learningMenuTableRow td
+	{
+		vertical-align: top;
+		padding-top: 14px !important;
+	}
+
+.learningMenuTableLeftCol
+{
+	padding: 14px 0px 0px 12px;
+	font-weight: bold;
+	color: #002d3f !important;
+	width: 150px;
+}
+
+.learningMenuTableRightCol
+{
+	padding: 14px 0px 0px 12px;
+	color: #002d3f;
+}
+
+.pubMenuTableLeftCol
+{
+	padding: 14px 0px 0px 12px;
+	width: 130px;
+}
+/* tabs */
+.ui-widget-content
+{
+	background: none;
+	border: 0px;
+}
+
+.ui-tabs .ui-tabs-panel
+{
+	padding: 0px;
+}
+
+.ui-tabs .ui-tabs-nav li a
+{
+	padding-right: 5px;
+	font-family: 'Arimo',sans-serif;
+	font-size: 12px;
+	border-left: solid 1px #002D3F;
+}
+
+.ui-tabs-nav li:first-child a
+{
+	border-left: 0px;
+	padding-left: 5px;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited
+{
+	color: #002D3F;
+	background: none;
+	font-weight: normal;
+}
+
+.ui-state-hover a, .ui-state-hover a:hover
+{
+	color: #E98300;
+	background: none;
+	font-weight: normal;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited, .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a
+{
+	color: #E98300;
+	background: none;
+	font-weight: bold;
+}
+
+.ui-tabs .ui-tabs-nav
+{
+	padding: 0 0 15px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-widget-header
+{
+	background: none;
+	border: none;
+}
+/****** Media *******/
+.showMoreHolder
+{
+	width: 450px;
+	height: 15px;
+	clear: both;
+}
+
+	.showMoreHolder div
+	{
+		color: #E98300;
+		font-size: 11px;
+		cursor: pointer;
+		font-family: 'Arimo',sans-serif;
+	}
+
+.mediaContainer
+{
+	min-height: 1px;
+	overflow: hidden;
+}
+
+.imageLineContainer
+{
+	width: 460px;
+	clear: both;
+	max-height: 128px;
+	overflow: hidden;
+}
+
+.imageContainer
+{
+	border: solid 2px white;
+	float: left;
+	overflow: hidden;
+	max-width: 60px;
+}
+
+	.imageContainer:hover
+	{
+		border: solid 2px #E98300;
+	}
+
+	.imageContainer, .imageContainer img
+	{
+		height: 60px;
+		min-width: 60px;
+	}
+
+.imageLineContainer div.scrollableArea *
+{
+	position: relative;
+	display: block;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+.mediaSubHeader
+{
+	clear: both;
+	color: #002D3F;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: 'lucida sans unicode', 'lucida grande', sans-serif;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+/*********************/
+/******** vertical tabs ********/
+#st_vertical
+{
+	padding-top: 10px;
+}
+
+div.st_vertical div.st_tab_view
+{
+	width: 460px;
+}
+/*****************************/
+.leftMenuHeader, .leftMenuHeader:hover
+{
+	color: white;
+	font-family: 'Arimo',sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+/****************************/
+.basic-modal-copy-holder
+{
+	float: right;
+	margin-top: -35px;
+	padding-right:20px;
+}
+a.basic-modal-copy, a.basic-modal-open
+{
+	color: white !important;
+	cursor: pointer;
+	padding-left: 30px;
+	font-weight:bold;
+}
+/****************************/

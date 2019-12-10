@@ -1,8 +1,11 @@
-
 import h5py
 
 
 def create_h5(output_dictionary):
+    """
+    Writes the upper level of the .ims file
+    :param output_dictionary:
+    """
     channel_color_list = ['0.000 0.000 1.000', '0.000 1.000 0.000', '1.000 0.000 0.000',
                           '0.000 1.000 1.000', '1.000 0.000 1.000', '1.000 1.000 0.000',
                           '1.000 0.500 0.000', '1.000 0.000 0.500', '0.000 1.000 0.500']
@@ -20,7 +23,11 @@ def create_h5(output_dictionary):
 
 
 def write_ims_file(output_dictionary):
-    print('Writing ims file')
+    """
+    Creates the file to be written to
+    :param output_dictionary:
+    """
+    #print('Writing ims file')
     save_pure_path = output_dictionary['save_directory']
     save_name = str(save_pure_path)
     f = h5py.File(save_name, "w")
@@ -28,7 +35,11 @@ def write_ims_file(output_dictionary):
 
 
 def write_file_attributes(file):
-    print('writing file attributes')
+    """
+    Writes the file attributes metadata
+    :param file:
+    """
+    #print('writing file attributes')
     write_attribute(file, 'DataSetDirectoryName', 'DataSet')
     write_attribute(file, 'DataSetInfoDirectoryName', 'DataSetInfo')
     write_attribute(file, 'ImarisDataSet', 'ImarisDataSet')
@@ -39,8 +50,13 @@ def write_file_attributes(file):
 
 
 def write_data_set_info_attributes(file, output_dictionary, channel_color_list):
+    """
+    Writes channel group information based on the channel color list
+    :param file:
+    :param output_dictionary:
+    :param channel_color_list:
+    """
     # Channel Groups
-    print('writing data set info attributes')
     channel_list = output_dictionary['file_channel_list']
     channel_names = output_dictionary['all_channels']
     data_set_info_group = file.create_group('DataSetInfo')
@@ -56,7 +72,6 @@ def write_data_set_info_attributes(file, output_dictionary, channel_color_list):
         write_attribute(channel_group, 'Name', channel_names[c])
 
     # Image Group
-    print('writing image group')
     x_min = output_dictionary['x_min']
     x_max = output_dictionary['x_max']
     y_min = output_dictionary['y_min']
@@ -66,14 +81,12 @@ def write_data_set_info_attributes(file, output_dictionary, channel_color_list):
     pixel_size = output_dictionary['pixel_size']
     image_group = data_set_info_group.create_group('Image')
     write_attribute(image_group, 'Description', '(description not specified)')
-    print('pixel:size')
     write_attribute(image_group, 'ExtMax0', str(x_max * pixel_size))
     write_attribute(image_group, 'ExtMax1', str(y_max * pixel_size))
     write_attribute(image_group, 'ExtMax2', str(z_max * pixel_size))
     write_attribute(image_group, 'ExtMin0', str(x_min * pixel_size))
     write_attribute(image_group, 'ExtMin1', str(y_min * pixel_size))
     write_attribute(image_group, 'ExtMin2', str(z_min * pixel_size))
-    print('post pixel size')
     write_attribute(image_group, 'Name', '(name not specified)')
     write_attribute(image_group, 'OriginalFormat', 'Bitplane: Imaris 5.5')
     write_attribute(image_group, 'OriginalFormatFileIOVersion', 'ImarisFileIO x64 9.3.1')
@@ -87,25 +100,21 @@ def write_data_set_info_attributes(file, output_dictionary, channel_color_list):
     write_attribute(image_group, 'Z', str(z_max - z_min + 1))
 
     # Imaris group
-    print('writing Imaris group')
     imaris_group = data_set_info_group.create_group('Imaris')
     write_attribute(imaris_group, 'ThumbnailMode', 'thumbnailMiddleSection')
     write_attribute(imaris_group, 'ThumbnailSize', '256')
     write_attribute(imaris_group, 'Version', '9.3')
 
     # ImarisDataSet group
-    print('writing data set group')
     IDS_group = data_set_info_group.create_group('ImarisDataSet')
     write_attribute(IDS_group, 'Creator', 'Imaricumpiler')
     write_attribute(IDS_group, 'Version', '9.3.1')
 
     # Log group
-    print('writing log group')
     log_group = data_set_info_group.create_group('Log')
     write_attribute(log_group, 'Entries', '0')
 
     # TimeInfo group
-    print('writing time info group')
     time_start = output_dictionary['time_start']
     time_end = output_dictionary['time_end']
     time_list = output_dictionary['time_list']
@@ -120,7 +129,11 @@ def write_data_set_info_attributes(file, output_dictionary, channel_color_list):
 
 
 def write_dataset_times(file, output_dictionary):
-    print('writing DataSetTimes')
+    """
+    Writes dataset times
+    :param file:
+    :param output_dictionary:
+    """
     # Create DataSetTimes
     time_start = output_dictionary['time_start']
     time_end = output_dictionary['time_end']
@@ -131,12 +144,22 @@ def write_dataset_times(file, output_dictionary):
 
 
 def write_thumbnail(file):
+    """
+    Writes the thumbnail information
+    :param file:
+    """
     thumbnail_group = file.create_group("Thumbnail")
     thumbnail_group.create_dataset("Data", (256, 1024), dtype='uint8')
     return file
 
 
 def write_attribute(group_name, attribute_name, attribute_value):
+    """
+    Generalized for writing 'generic' attributes
+    :param group_name:
+    :param attribute_name:
+    :param attribute_value:
+    """
     group_name.attrs.create(attribute_name, [x for x in attribute_value], dtype=h5py.h5t.C_S1)
 
 

@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+#cameraspicker ul
+{
+font-size: 12px;
+font-family: 'Arimo', sans-serif;
+margin-left: 5px;
+line-height: 20px;
+}
+
+#cameraspicker ul li
+{
+list-style-type:disc;
+}
+
+#cameraspicker ul li:hover
+{
+text-decoration: underline;
+cursor: pointer;
+}
+
+
+#cameraspicker ul li a
+{
+color:White;
+cursor: pointer;
+text-decoration:none;
+}
+#cameraspicker ul li a:hover
+{
+color:White;
+cursor: pointer;
+text-decoration:underline;
+}

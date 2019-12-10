@@ -1,0 +1,1214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en-US"><head id="Head">
+<!--**********************************************************************************-->
+<!-- DotNetNuke - http://www.dotnetnuke.com                                          -->
+<!-- Copyright (c) 2002-2012                                                          -->
+<!-- by DotNetNuke Corporation                                                        -->
+<!--**********************************************************************************-->
+<meta http-equiv="X-UA-Compatible" content="IE=9"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><meta content="text/javascript" http-equiv="Content-Script-Type"><meta content="text/css" http-equiv="Content-Style-Type"><meta id="MetaDescription" name="DESCRIPTION" content="&quot;Bitplane makes the IMS file format OPEN SOURCE&quot;"><meta id="MetaKeywords" name="KEYWORDS" content=",DotNetNuke,DNN"><meta id="MetaCopyright" name="COPYRIGHT" content="Copyright [year] by Bitplane"><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke "><meta id="MetaAuthor" name="AUTHOR" content="Bitplane Discussion Forum and File Exchange"><meta name="RESOURCE-TYPE" content="DOCUMENT"><meta name="DISTRIBUTION" content="GLOBAL"><meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW"><meta name="REVISIT-AFTER" content="1 DAYS"><meta name="RATING" content="GENERAL"><meta http-equiv="PAGE-ENTER" content="RevealTrans(Duration=0,Transition=1)"><style id="StylePlaceholder" type="text/css">
+		
+	</style><link href="Imaris_Open_IMS_files/default.css" type="text/css" rel="stylesheet"><link href="Imaris_Open_IMS_files/module.css" type="text/css" rel="stylesheet"><link href="Imaris_Open_IMS_files/skin.css" type="text/css" rel="stylesheet"><link href="Imaris_Open_IMS_files/container.css" type="text/css" rel="stylesheet"><link href="Imaris_Open_IMS_files/module_002.css" type="text/css" rel="stylesheet"><link href="Imaris_Open_IMS_files/ComboBox.css" type="text/css" rel="stylesheet"><script type="text/javascript" async="" src="Imaris_Open_IMS_files/ga_002.js"></script><script type="text/javascript" async="" src="Imaris_Open_IMS_files/ga.js"></script><script src="Imaris_Open_IMS_files/jquery_002.js" type="text/javascript"></script><script src="Imaris_Open_IMS_files/jquery-ui.js" type="text/javascript"></script><link id="Styles1" rel="stylesheet" type="text/css" href="Imaris_Open_IMS_files/css.css"><link id="Styles2" rel="stylesheet" type="text/css" href="Imaris_Open_IMS_files/topmenu.css"><link id="Styles3" rel="stylesheet" type="text/css" href="Imaris_Open_IMS_files/footer.css"><link id="Styles4" rel="stylesheet" type="text/css" href="Imaris_Open_IMS_files/button.css"><link id="Styles5" rel="stylesheet" type="text/css" href="Imaris_Open_IMS_files/cameras.css">
+	<!--[if IE]>
+    <link type="text/css" href="/Portals/_default/Skins/andor/skin_ie.css" rel="stylesheet" />
+    <![endif]-->
+	<script type="text/javascript">
+		if (typeof jQuery != 'undefined') {
+			jQuery(document).ready(function ($) {
+				var filetypes = /\.(zip|exe|pdf|doc*|xls*|ppt*|mp3)$/i;
+				var baseHref = '';
+				if (jQuery('base').attr('href') != undefined)
+					baseHref = jQuery('base').attr('href');
+				jQuery('a').each(function () {
+					var href = jQuery(this).attr('href');
+					if (href && (href.match(/^https?\:/i)) && (!href.match(document.domain))) {
+						jQuery(this).click(function () {
+							var extLink = href.replace(/^https?\:\/\//i, '');
+							_gaq.push(['_trackEvent', 'External', 'Click', extLink]);
+							if (jQuery(this).attr('target') != undefined && jQuery(this).attr('target').toLowerCase() != '_blank') {
+								setTimeout(function () { location.href = href; }, 200);
+								return false;
+							}
+						});
+					}
+					else if (href && href.match(/^mailto\:/i)) {
+						jQuery(this).click(function () {
+							var mailLink = href.replace(/^mailto\:/i, '');
+							_gaq.push(['_trackEvent', 'Email', 'Click', mailLink]);
+						});
+					}
+					else if (href && href.match(filetypes)) {
+						jQuery(this).click(function () {
+							var extension = (/[.]/.exec(href)) ? /[^.]+$/.exec(href) : undefined;
+							var filePath = href;
+							_gaq.push(['_trackEvent', 'Main Content', 'Click-' + extension, filePath]);
+							_gaq.push(['_trackPageview', filePath]);
+							//                        if (jQuery(this).attr('target') != undefined && jQuery(this).attr('target').toLowerCase() != '_blank') {
+							//                            setTimeout(function () { location.href = baseHref + href; }, 200);
+							//                            return false;
+							//                        }
+						});
+					}
+				});
+			});
+}
+
+
+
+	</script>
+	<script type="text/javascript">
+
+//Tracking code customizations only
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-3400916-1']);
+_gaq.push(['_setDomainName', '.bitplane.com']);
+_gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+function ShowPdfModal(elem) {
+    var url = $(elem).attr("pdfurl");
+    $('#basic-modal-content-pdf-dynamic iframe')[0].src = url;
+    $('#basic-modal-content-pdf-dynamic').css('height', $(window).height() * 0.8);
+    $('#basic-modal-content-pdf-dynamic').css('width', $(window).width() * 0.8);
+    _gaq.push(['_setAccount', 'UA-55534-1']);
+    _gaq.push(['_trackEvent', 'Camera Filter Sidebar', 'Click-pdf', url]);
+    _gaq.push(['_trackPageview', url]);
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) && url) {
+        window.open(url);
+    }
+    else {
+        $('#basic-modal-content-pdf-dynamic').modal();
+        $("#basic-modal-content-pdf-dynamic .basic-modal-open").click(function () { window.open($('#basic-modal-content-pdf-dynamic iframe')[0].src) });
+        $("#basic-modal-content-pdf-dynamic .basic-modal-copy").zclip({
+            path: "/js1/zclip/ZeroClipboard.swf",
+            copy: function () { return $('#basic-modal-content-pdf-dynamic iframe')[0].src; }
+        });
+    }
+    return false;
+}
+
+
+	</script>
+	<meta name="google-site-verification" content="MUwC0Em-p3g0UmSaa60KZffo6B5oOV9oqJszvpAKx6g">
+    <style type="text/css">
+		a.pdfmodal {
+			cursor: pointer;
+			color: Blue;
+		}
+	</style>
+        
+<title>
+	Imaris Open | IMS
+</title></head>
+<body id="Body">
+	<form method="post" action="/Default.aspx?tabid=268" id="Form" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="StylesheetManager_TSSM" id="StylesheetManager_TSSM" value="">
+<input type="hidden" name="ScriptManager_TSM" id="ScriptManager_TSM" value=";;System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35:en:22727c22-244c-4537-8243-3c42cc5b20e2:ea597d4b:b25378d2">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="6T+xVFBnib4xU7GPxOoNtrzZxhIrCXhVTf/2icJyNbDX+cu8ZfSuJn7Jnn6eJpEpdyQlrm9o+iHObPfHnzqJtpmT1MBTDG/BCawNU9m/QeU3QEbt+lWXoGiHlVZC/gXlSt2nzIeatTvQ+rtc8nyiE6H5JhhLFNY5wrYPCbUqp0cWf94Md9VIWeXBr+PN7v75NAclBNKXwfDaJi2GfcGWykrcI1lGpsoNTQWUaG3Yg5io8qrA/+huNA1XRyThTk9HoZGlq80v6S5HPNRovovVf6qxQZMPiqr33p/E98nT7/6t7YKXGVz51u85V3maRGprJNSbAz2PMEt5Io5qspOpqWzFiSVHOn53uYpxTfr5flzRtyq1E2sG6oLsNb3yDO9wCq2AJur0yUw6GzgITxuOm/4tgggeczanvfs1D3RrVA46QMQ8YQyqapPAUEG5iKXPmkIwBFPgsGmsIGSsp9gphQ6jonwbRiOtmg178bpg22V9BX3tMXnOoKiMQNra5xuXpPX7b2tI3Nu2Pjx1npfaXqlUYPrcmhQiAi0yELF93zYYSX0l8LYgJtKWs0AbDdIWd/4hE+EqN/FgbHoV9B0xt2CWturOD7ip4kJ/Z3y3yAEe/FoBrAu+j3KOpsuUuys0x+rUEGYgKnB3cjLjDnia78xGIYmQkns6pdK+4rMQJhwswQYohlFuv6YwYAWAYBLGPB/UHWQOb2iti+INBGMjM/66z1l1ILYfzbRY9283N3txp5CucDxasPugsEZsyQg91VXEcFNWo0JR6fqSSFWHIeCA28YQE8DQu8Nt4+VLXV56Gfubvvw6y/Hn6WRIAE3uoPFWKPvprFguIrx+WSSFuVRyKh6syXVBGOaixZdR0P2raWebGdD4A9Zhq3y2T5WNS05lviran/YPFVgTJJE5bSI7Uct8QRDvKPF1pqYwd1GsnIJaVOVUJjnLCpPSLSNJ7+RE27+jtxU0TGu3omsXcGGWmjhWtaCld3u1YOSYB+/qlhO4LR0z4R+l8Rt7qyecYfMfbOfP5N4hsVdB05SvuYvVFX4NiMahGFJ7+yk7sXtQIYKsoEF0xAT1oeuHsrJeJJTeZ5apX17cd4c3iEAHWD4LfAIVttOShSl7nRoVbKFbL4hW1e2iKXESlD0f2SCpzIXbR4j463GqepC+5Q4BoXh7VCiVu5KbwWF5+dXcdHi0VzuhH0+LTir13TAReOttkZKFcGRWWLQrqsn74/O0g5vSja9yfPeDXWipTWkKLjHxBLcnLMySOSGrbTPBE+AVoM6jCkqwSj82INUnGWUCm5blM1hXshSr1sdmbCZfpbhGHXFf8GSgirkWwPem+yte9LaVfJ+mMLh0icJxxpe9wnfS1Gi4hnON2ZrRqMtWUVMIW8vkTKKyeHncDCyfXJsNwD2S+owFNpPY7NFJhy+1QUbxIlO/RSPzUqLVQ8mJooXLsXOjGp86Pg7XdTnUzwOi4zFO8swvBSPgxhjIuvPDPs0LlRogWP+Mfb70vtrl1pKQE7d2FE98LfS8xMH4nrHxl9pJ0/hQm5rzsMN8/9LIOLJtXEK+fyNtnogpxcGXYSBrgfbow6NDMOXj4RcIN1TebMoMQal9U697ngD7XIKBaAm59Su9rmt09XSZUGIy2eIsArxv4pxXXutm1uAYOK3e41jmcm5Wkf4vU2L7gM4fYWn5LoG6RSoTDhL3JD2FllpA6vzFapUClEG/NmRfK7Cg6X+H3glyL7M10YvzZxkp1rHdFbvvDubAj9vVkqFCCxUixaH3I0Ugpb4hBGiznktHIkLRqTJz21oK76bMu7olFptMS0JUkAbt6ags4zyHQAAxkb75m3daiqq1mFkDaChk/C1GMFN7AAfxQeVj1AUDJNJsAQ8rnDJw3RAmAstJapWozIMrPb0nmm0RGi6+1BVuEm8uLw==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form'];
+if (!theForm) {
+    theForm = document.Form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="Imaris_Open_IMS_files/WebResource.js" type="text/javascript"></script>
+
+
+<script src="Imaris_Open_IMS_files/Telerik.js" type="text/javascript"></script>
+<script src="Imaris_Open_IMS_files/dnn_003.js" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0B0334">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+</div><script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', [], [], [], 90, '');
+//]]>
+</script>
+
+		<script src="Imaris_Open_IMS_files/jquery.js" type="text/javascript"></script><script src="Imaris_Open_IMS_files/dnn.js" type="text/javascript"></script><script src="Imaris_Open_IMS_files/ControlPanel.js" type="text/javascript"></script><script src="Imaris_Open_IMS_files/dnncore.js" type="text/javascript"></script><script src="Imaris_Open_IMS_files/dnn_002.js" type="text/javascript"></script>
+		
+		
+
+
+
+
+
+
+<script src="Imaris_Open_IMS_files/jquery_007.js" type="text/javascript"></script>
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_005.js"></script>
+<link type="text/css" href="Imaris_Open_IMS_files/basic.css" rel="stylesheet">
+
+
+
+
+
+
+
+<link href="Imaris_Open_IMS_files/css_004.css" rel="stylesheet" type="text/css">
+<link href="Imaris_Open_IMS_files/css_003.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#footer table th
+	{
+		font-size: 12px;
+	}
+
+	#footer table tr td
+	{
+		font-size: 11px;
+	}
+
+	#toplinks ul li
+	{
+		list-style-type: none;
+	}
+
+	#footer
+	{
+		padding-top: 1px;
+	}
+
+	#footercontent th
+	{
+		height: 23px;
+	}
+
+	#footercontent td
+	{
+		line-height: 1.5em;
+	}
+
+	.mainContentPane
+	{
+		width: 100%;
+	}
+</style>
+<div id="bg">
+	<div id="container">
+		<div id="menutop">
+			<a style="margin: 0px 5px 0px 15px;" href="http://www.bitplane.com/go/bitplane/bitplane-team">Contact</a> | <a style="margin: 0px 0px 0px 5px;" href="http://www.bitplane.com/go/bitplane/bitplane-team">
+				Support</a>
+			<div id="rightmenutop">
+				
+
+
+				 <a href="https://twitter.com/ImarisBitplane">
+					<img src="Imaris_Open_IMS_files/twitter_icon.png" alt="Twitter" title="Follow Bitplane on Twitter">
+				</a><a href="https://www.facebook.com/groups/22023791027/">
+					<img src="Imaris_Open_IMS_files/facebook_icon.png" alt="Facebook" title="Follow Bitplane on Facebook">
+				</a><a href="http://www.linkedin.com/company/bitplane">
+					<img src="Imaris_Open_IMS_files/linkedin_icon.png" alt="LinkedIN" title="Follow Bitplane on LinkedIn">
+				</a>
+
+<div style="width: auto; float: right; margin-right: 10px;">
+        
+      
+<a style="color: #4d4f53" href="http://portal.bitplane.com/">Customer Portal</a> | <a id="dnn_dnnLogin_loginLink" class="LoginLink" href="http://open.bitplane.com/default.aspx?tabid=247">Login</a>
+ | <a style="margin-right: 5px; color: #4d4f53" href="http://open.bitplane.com/Default.aspx?tabid=254">Register</a> | <a style="margin-right: -10px; color: #4d4f53" href="http://open.bitplane.com/Default.aspx?tabid=241">Become a Developer</a><b style="font-weight: normal; margin-left: 15px;">|</b> <a style="color: #4d4f53" href="http://open.bitplane.com/Default.aspx?tabid=259">FAQ</a>
+      
+        
+</div>
+
+			</div>
+		</div>
+
+		<div id="toplogo">
+			<a href="http://www.bitplane.com/">
+				<img class="toplogo" src="Imaris_Open_IMS_files/bitplane_logo_mini.png" alt="Bitplane AG"></a>
+		</div>
+
+		<div id="toplinks">
+		<ul>
+			    <li><a href="http://www.bitplane.com/imaris">PRODUCTS</a></li>
+                <li><a href="http://www.bitplane.com/learning">LEARNING</a></li>
+                <li><a href="http://www.bitplane.com/download">DOWNLOADS</a></li>
+                <li><a href="http://open.bitplane.com/Default.aspx?tabid=243">FORUM</a></li>
+                <li><a href="http://www.bitplane.com/contact">SUPPORT</a></li>
+				
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_003.js"></script>
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_006.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$("input[id$='txtsearch']").watermark('Search the site');
+	});
+	</script>
+<li class="search">
+	 <div style="float:right; width:200px; margin-right:0px; height:20px;">
+    	<div class="googlesearchboxdiv" style="position:relative; top:1px;">
+				<input name="dnn$ctrsearch$txtsearch" type="text" id="dnn_ctrsearch_txtsearch" style="width: 138px; font-size: 12px; float:left; line-height:normal !important; margin:-16px 0px 0px 20px; border: solid 1px white; height: 31px; color: #4d4f53; padding-left: 5px;" size="8" class="search1" placeholder="Search the site">
+			
+			
+				<input type="image" name="dnn$ctrsearch$Image1" id="dnn_ctrsearch_Image1" src="Imaris_Open_IMS_files/button-search.gif" style="border-width:0px; border: solid 1px #9A9B9C; line-height:normal!important; margin:-16px 0px 0px 0px;">
+			
+		
+	
+</div></div></li>
+
+				<xxxxelmt>
+            </xxxxelmt>
+			</ul>
+		</div>
+
+		<div id="maincontent">
+			<div id="relatedproducts">
+				<div id="dnn_RelatedProductPane" class="DNNEmptyPane">
+				</div>
+			</div>
+			<div id="dnn_ContentPane" class="mainContentPane">
+			<div class="DnnModule DnnModule-DNN_HTML DnnModule-1108"><a name="1108"></a>
+<div class="c_DNN6_SubTitle c_DNN6">
+    
+    <div id="dnn_ctr1108_ContentPane">
+    <!-- Start_Module_1108 --><div id="dnn_ctr1108_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
+	<div id="dnn_ctr1108_HtmlModule_lblContent" class="Normal">
+	<style>
+    h2 {
+    color:#ed7700!important;
+    }
+    h1 {
+    color:#1C2674!important;
+    }
+    ul {
+    font-size:12px;
+    line-height:18px;
+    }
+    .models {
+    font-family: 'Raleway', sans-serif;
+    }
+    .models th {
+    background-color:#1c2674;
+    color:#fff;
+    text-align:left;
+    font-size:15px;
+    font-weight:normal;
+    border-bottom:1px solid #fff;
+    border-right: 1px solid #fff;
+    }
+    .models tr:nth-child(even) {
+    font-size:12px;
+    background-color:#e6e7ee;
+    color:#000;
+    text-align:left;
+    }
+    .models tr:nth-child(odd) {
+    font-size:12px;
+    background-color:#f3f3f7;
+    color:#000;
+    text-align:left;
+    }
+    .models a {
+    color:#ed7700;
+    }
+    .models a:hover {
+    text-decoration:underline;
+    cursor:pointer;
+    }
+</style>
+<h1>IMARIS 5.5 File Format Description (IMS)
+</h1>
+<h2>0. Introduction</h2>
+<p>The Imaris File Format is designed to allow fast visualization of 
+very large images. For this purpose it stores not only the original 
+image data but also lower resolution versions of the original data. This
+ allows the visualization software to load only low resolution data when
+ those are sufficient. Also for the purpose of fast visualization the 
+Imaris File Format stores the image data in contiguous 3D chunks 
+(hdf-terminology for 3D blocks) which allows the visualization software 
+to load only those data that are in the field of view. The 
+multiresolution structure and the chunk-wise storage layout are the 
+cornerstones of this high performance file format.</p>
+<h2>1. Summary</h2>
+<p>The file format is based on the standard HDF5 (Hierarchical Data 
+Format 5) developed by The National Center for Supercomputing 
+Applications, University of Illinois at Urbana-Champaign. This allows 
+the use of widely available HDF5 libraries and tools.</p>
+<p>An Imaris 5.5 file consists of three main types of groups (or folders) for the image:</p>
+<ul>
+    <li><strong>DataSet:</strong> The image itself (includes all slices, channels, and time points, resolution levels)</li>
+    <li><strong>DataSetInfo:</strong> Image metadata information (e.g. voxel size)</li>
+    <li><strong>Thumbnail:</strong> 2D thumbnail of the image.</li>
+</ul>
+<p>An additional group may contain the Imaris Scene:</p>
+<ul>
+    <li><strong>Scene or Scene8:</strong> surpass objects, annotations, etc.</li>
+</ul>
+<p>In this document, the terms group, attribute and dataset refer to the
+ concepts given in the HDF5 documentation. Whenever a path is given 
+(/DataSet/ResolutionLevel 12) one should open the corresponding groups 
+and subgroups.</p>
+<img alt="" src="Imaris_Open_IMS_files/ims_structure.png" style="margin-left: 15px;" align="right">
+<p>The prior “Imaris Classic” and “Imaris3” file formats are not based 
+on the HDF5 specifications and will not be described in this document.</p>
+<h2>2. Tools and Resources</h2>
+<p>Bitplane uses the HDF5 library from the HDF Group as a backend for 
+reading and writing HDF5 files. A good starting point for reading about 
+the HDF5 file format is the website of the HDF5 Group, 
+http://www.hdfgroup.org/HDF5/. The HDF Group provides its library as 
+open source and free of charge. It is recommended to make use of the 
+library rather than creating your own HDF5 reader/writer.</p>
+<p>The HDF Group also provides helpful tools along with the library. 
+Noteworthy is HDFView, a java-based HDF file inspector. It can be 
+downloaded free of charge <a href="http://www.hdfgroup.org/hdf-java-html/hdfview/">here</a>. </p>
+<p>It is highly recommended to use HDFView to look at some example IMS files in order to gain an understanding of the file format.</p>
+<h2>3. Structure</h2>
+<p>The Imaris 5.5 file structure is composed of a root “folder” and three main groups, DataSet, DataSetInfo, and Thumbnail.</p>
+<p>The screenshot on the right of an IMS file in HDFView shows the HDF 
+file structure. The example image has two channels and 3 resolution 
+levels.</p>
+<p>The DataSet folder contains the actual image data. The DataSetInfo 
+folder contains descriptive parameters. The Thumbnail folder contains a 
+2D thumbnail of the image.
+</p>
+<table class="models" style="width: 100%;" cellspacing="0" cellpadding="10">
+    <colgroup><col><col><col><col><col><col><col><col></colgroup>
+    <tbody>
+        <tr>
+            <th>Path</th>
+            <th>Attribute</th>
+            <th>Value</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>/</td>
+            <td>ImarisDataSet</td>
+            <td>ImarisDataSet</td>
+            <td>Specific to format</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>FormatVersion</td>
+            <td>5.5.0</td>
+            <td>Format version</td>
+        </tr>
+        <tr>
+            <td>/DataSetInfo</td>
+            <td></td>
+            <td></td>
+            <td>Contains DataSet information</td>
+        </tr>
+        <tr>
+            <td>/Thumbnail</td>
+            <td></td>
+            <td></td>
+            <td>Contains the Thumbnail data</td>
+        </tr>
+    </tbody>
+</table>
+<h2>3.1 DataSet</h2>
+<p>An Imaris 5.5 DataSet has the following structure. A Dataset consists
+ of one or more 3D images (for 2D images the size of one dimension is 
+equal to 1). When a dataset has multiple channels or multiple time 
+points it stores 3D images for each channel and each time point. 
+Datasets are saved in the file using chunks (see HDF5 documentation) and
+ can optionally be compressed using GNU GZIP. For good reading 
+performance, chunks must be stored in the size that the Imaris Software 
+requests for visualization (see chapter Imaris Datablocks below).</p>
+<p>The HDF5 chunks mechanism implies that the effective size of the 
+Dataset can be bigger than the size of the original 3D image. Thus, the 
+attributes ImageSizeZ, ImageSizeY and ImageSizeX are also saved with 
+each Dataset.</p>
+<p>The type of the Dataset needs to resemble the type of data to be stored. Valid types are listed in the following table.</p>
+<table class="models" style="width: 100%;" cellspacing="0" cellpadding="10">
+    <colgroup><col><col><col><col><col><col><col><col></colgroup>
+    <tbody>
+        <tr>
+            <th>HDF5 Data type</th>
+            <th>Imaris Image Data type</th>
+        </tr>
+        <tr>
+            <td>H5T_NATIVE_UCHAR</td>
+            <td>8 bit unsigned integer (char)</td>
+        </tr>
+        <tr>
+            <td>H5T_NATIVE_USHORT</td>
+            <td>16 bit unsigned integer (short)</td>
+        </tr>
+        <tr>
+            <td>H5T_NATIVE_UINT32</td>
+            <td>32 bit unsigned integer</td>
+        </tr>
+        <tr>
+            <td>H5T_NATIVE_FLOAT</td>
+            <td>32 bit floating point</td>
+        </tr>
+    </tbody>
+</table>
+<p>The creation attributes for the Dataset should be chunked, storage 
+allocation time incremental, fill value none, compression none or GZIP. 
+If GZIP compression is activated, any valid GZIP parameter may be used 
+(i.e. compression 0 to 9 is acceptable, 3 is preferred).</p>
+<p>Along with each 3D image, the corresponding histogram is saved as 
+well (see table below). The histogram is a HDF5 1D Dataset of type 64bit
+ unsigned integer. Its length can be read out using the HDF5 library. 
+The first value corresponds to the count of value HistogramMin in the 
+image. The last value is the count of HistogramMax in the image.</p>
+<table class="models" style="width: 100%;" cellspacing="0" cellpadding="10">
+    <colgroup><col><col><col><col><col><col><col><col></colgroup>
+    <tbody>
+        <tr>
+            <th>Path</th>
+            <th>Attribute</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>/DataSet/ResolutionLevel 0/TimePoint 0/Channel 0</td>
+            <td></td>
+            <td>Informations concerning resolution 0, time point 0 and channel 0</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageSizeX = 285</td>
+            <td>The size in X in pixel for Resolution Level 0</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageSizeY = 218</td>
+            <td>The size in Y in pixel</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageSizeZ = 64</td>
+            <td>The size in Z in pixel</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageBlockSizeX = 64</td>
+            <td>The size of a image block in X in pixel for resolution level 0 (alpha version only) - deprecated</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageBlockSizeY = 256</td>
+            <td>The size of a image block in Y in pixel(alpha version only) - deprecated</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ImageBlockSizeZ = 64</td>
+            <td>The size of a image block in Z in pixel(alpha version only) - deprecated</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>HistogramMin = 0</td>
+            <td>The minimal value of the histogram corresponding to this image</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>HistogramMax = 255</td>
+            <td>The maximal value of the histogram</td>
+        </tr>
+        <tr>
+            <td>/DataSet/Resolution Level 0/TimePoint 0/Channel 0/Data</td>
+            <td></td>
+            <td>THE image, with size ImageSizeX*ImageSizeY*ImageSizeZ</td>
+        </tr>
+        <tr>
+            <td>/DataSet/Resolution Level 0/TimePoint 0/Channel 0/Histogram</td>
+            <td></td>
+            <td>The histogram of the image. The first bin corresponds to HistogramMin and the last bin to HistogramMax</td>
+        </tr>
+        <tr>
+            <td>/DataSet/ResolutionLevel 0/TimePoint 0/Channel 1</td>
+            <td></td>
+            <td>Informations concerning resolution 0, time point 0 and channel 1</td>
+        </tr>
+        <tr>
+            <td>/DataSet/ResolutionLevel 0/TimePoint 0/Channel 0/Data</td>
+            <td></td>
+            <td>Image data for resolution 0, time point 0 and channel 0</td>
+        </tr>
+        <tr>
+            <td>/DataSet/ResolutionLevel 0/TimePoint 0/Channel 0/Histogram</td>
+            <td></td>
+            <td>Image histogram for resolution 0, time point 0 and channel 0</td>
+        </tr>
+    </tbody>
+</table>
+<p><strong>Example</strong></p>
+<code>mFileId = H5Fopen(mFileName.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);<br>
+hid_t vDataSetId = H5Gopen(mFileId, “DataSet”);<br>
+hid_t vLevelId = H5Gopen(vDataSetId, “Resolution Level 0”);<br>
+hid_t vTimePointId = H5Gopen(vLevelId, "TimePoint 0");<br>
+hid_t vChannelId = H5Gopen(vTimePointId, "Channel 0");<br>
+hid_t vDataId = H5Dopen(vChannelId, “Data”);<br>
+// read the attributes ImageSizeX,Y,Z
+<code>hsize_t vFileDim[3] = {ImageSizeZ, ImageSizeY, ImagesizeX};<br>
+hid_t vFileSpaceId = H5Screate_simple(3, vFileDim, NULL);</code>
+<code>char* vBuffer = new vBuffer[ImageSizeZ*ImageSizeY*ImageSizeX];<br>
+H5Dread(vDataId, H5T_NATIVE_CHAR, H5S_ALL, vFileSpaceId, H5P_DEFAULT, vBuffer);</code>
+<p>In the above example, the whole 3D image corresponding to resolution 
+0, time point 0 and channel 0 is read. Using the HDF5 library it also 
+possible to read only part of the image, for memory or other 
+requirements</p>
+<h2>3.2 DataSetInfo</h2>
+<p>The DataSetInfo group contains all the image parameters from Imaris. 
+The sections are stored as HDF5 groups, parameters are stored as HDF5 
+attributes. Hdf5 attributes can be opened using H5Aopen_name and read 
+using H5Aread. All attributes are stores as type string, i.e. numbers 
+have to be converted to string. The HDF5 type for attributes is an array
+ of H5T_C_S1 (C String).</p>
+<p>In the following, the term “LSM" is used as an abbreviation of “Laser Scanning Microscope”.</p>
+<table class="models" style="width: 100%;" cellspacing="0" cellpadding="10">
+    <colgroup><col><col><col><col><col><col><col><col></colgroup>
+    <tbody>
+        <tr>
+            <th>Group / Section Name</th>
+            <th>Attribute / Parameter Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>ImarisDataSet</td>
+            <td></td>
+            <td>This section holds information about the data organization in the file. (always present)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Creator = Imaris</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>NumberOfImages = 1</td>
+            <td>At the moment there is only one multi-channel-time image per file</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Version = 5.5</td>
+            <td>The version of Imaris which created this file</td>
+        </tr>
+        <tr>
+            <td>Imaris</td>
+            <td></td>
+            <td>Information about the thumbnail and Imaris. (always present)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Filename = retina.ims</td>
+            <td>The name of the original file</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ManufactorString = Generic Imaris 3.x</td>
+            <td>Manufactor information</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ManufactorType = LSM</td>
+            <td>Manufactor type information</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ThumbnailMode = thumbnailMIP</td>
+            <td>The type of  data representation of the thumbnail. Valid
+ values are "thumbnailNone", "thumbnailMiddleSection", "thumbnailMIP" or
+ "thumbnailNone".</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Version = 5.5</td>
+            <td>The version of Imaris which created this file</td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td></td>
+            <td>Information about the DataSet. (always present)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Description = nucleus</td>
+            <td>Detailed description of the image in plain text (can be multiple lines)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMax0 = 46.7464</td>
+            <td>Data max. extension X (in given units: um, nm, …)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMax1 = 35.7182</td>
+            <td>Data max. extension Y</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMax2 = 12.6</td>
+            <td>Data max. extension Z</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMin0 = -10.3</td>
+            <td>Data origin X</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMin1 = -1.5</td>
+            <td>Data origin Y</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ExtMin2 = 3.4</td>
+            <td>Data origin Z</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>LensPower = 63x</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Name = m1193.pic</td>
+            <td>Short description of the image (some characters)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Noc = 2</td>
+            <td>Number of channels</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>RecordingDate = 1991-10-01 16:45:45</td>
+            <td>“YYYY-MM-DD HH:MM:SS”</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Unit = um</td>
+            <td>"m“, "mm“, "um“ or "nm“</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>X = 285</td>
+            <td>Image Size X (in voxels)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Y = 218</td>
+            <td>Image Size Y (in voxels)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Z = 64</td>
+            <td>Image Size Z (in voxels)</td>
+        </tr>
+        <tr>
+            <td>Channel X</td>
+            <td></td>
+            <td>Information about channel X (there is one section per channel) (always present)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Color = 1 0 0</td>
+            <td>The base color (r,g,b float values from 0.0 to 1.0)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ColorMode = BaseColor</td>
+            <td>“BaseColor”, “TableColor” see example below for the color table mode.</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ColorOpacity = 0.168</td>
+            <td>The opacity with which the volume rendering displays the channel (float value from 0.0 to 1.0)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ColorRange = 0 194.921</td>
+            <td>The display “contrast”</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Description = Cy5</td>
+            <td>Detailed description of the channel</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Gain = 0</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>LSMEmissionWavelength =</td>
+            <td>Emission Wavelength</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>LSMExcitationWavelength =</td>
+            <td>Excitation Wavelength</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>LSMPhotons =</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>LSMPinhole =</td>
+            <td>Pinhole diameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Max = 255</td>
+            <td>The data maximum value of the channel image</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>MicroscopeMode =</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Min = 0</td>
+            <td>The data minimum value of the channel image</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Name = CollagenIV (TxRed)</td>
+            <td>Short description of the channel (some chars)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>NumericalAperture =</td>
+            <td>Numerical Aperture</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Offset = 0</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Pinhole = 0</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>RefractionIndexEmbedding =</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>RefractionIndexImmersion =</td>
+            <td>Deconvolution parameter</td>
+        </tr>
+        <tr>
+            <td>TimeInfo</td>
+            <td></td>
+            <td>Information about time for all channels. (always present)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>DataSetTimePoints = 1</td>
+            <td>The number of time points in the DataSet</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>FileTimePoints = 1</td>
+            <td>The number of time points in the file (currently the same as DataSetTimePoints)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>TimePoint1 = 1991-10-01 16:45:45.000</td>
+            <td>Time for time point 1. Time must be strictly increasing between time points.</td>
+        </tr>
+        <tr>
+            <td>Log</td>
+            <td></td>
+            <td>Any information about the history of the image (especially the data manipulation).</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entries = 3</td>
+            <td>Number of entries (number of image data modifications). Can be zero.</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entry0 = <bpipbaseline></bpipbaseline></td>
+            <td>First modification</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entry1 = <bpipgaussian></bpipgaussian></td>
+            <td>Second modification</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Entry2 = <bpipswapzwitht></bpipswapzwitht></td>
+            <td>Third modification</td>
+        </tr>
+    </tbody>
+</table>
+<p>Note that any other group/section can be available depending on the original file format (Olympus, Zeiss etc)</p>
+<p><strong>Example to read LSMEmissionWavelength of Channel 3</strong></p>
+<code>mFileId = H5Fopen(mFileName.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);<br>
+// open DataSetInfo group<br>
+hid_t vDataSetInfoId = H5Gopen(mFileId, “DataSetInfo”);<br>
+// open channel 3 group<br>
+hid_t vChannel3Id = H5Gopen(vDataSetInfoId, “Channel 3”);<br>
+// open attribute LSMEmissionWavelength<br>
+hid_t vAttributeId = H5Aopen_name(vChannelId, “LSMEmissionWavelength”);<br>
+// get data space<br>
+hid_t vAttributeSpaceId = H5Aget_space(vAttributeId);<br>
+// get attribute value size<br>
+hsize_t vAttributeSize = 0;<br>
+H5Sget_simple_extent_dims(vAttributeSpaceId, &amp;vAttributeSize, NULL);<br>
+// create buffer<br>
+char* vBuffer = new char[(bpSize)vAttributeSize+1];<br>
+vBuffer[vAttributeSize] = '\0';<br>
+// read attribute value<br>
+H5Aread(vAttributeId, H5T_C_S1, vBuffer);</code>
+<h2>3.3 Thumbnail</h2>
+<p>The thumbnail directory contains a 2D, square RGBA image, of 
+arbitrary size (typical values being 128x128 or 256x256). The image data
+ for a thumbnail of size W should be read using a buffer of unsigned 
+char with a size of W x W x 4 (with H5Dread). The HDF5 dataset size is W
+ rows and W x 4 columns. Each image pixel is stored as 4 HDF5 values, in
+ the order Red, Green, Blue and Alpha component.</p>
+<p><strong>Example</strong></p>
+<code>// open the group where the thumbnail stuff is<br>
+H5Gopen(mFileId, “Thumbnail”);<br>
+// get the dataset<br>
+hid_t vThumbnailDataId = H5Dopen(vThumbnailId, "Data");<br>
+// get the dataspace<br>
+hid_t vThumbnailSpaceId = H5Dget_space(vThumbnailDataId);<br>
+// get the size of data<br>
+hsize_t vThumbnailDims[2];<br>
+H5Sget_simple_extent_dims(vThumbnailSpaceId, vThumbnailDims, NULL);<br>
+char* vBuffer = new char[(bpSize)(vThumbnailDims[0] * vThumbnailDims[1])];<br>
+// read the thumbnail data<br>
+H5Dread(vThumbnailDataId, H5T_NATIVE_UCHAR, H5S_ALL, H5S_ALL, H5P_DEFAULT, vBuffer);<br>
+// create image<br>
+vThumbnail = new image(vThumbnailDim[1]/4, vThumbnailDim[0]);<br>
+for all thumbnail pixel {<br>
+vThumbnail[vPixel].Red = vBuffer[vIndex];<br>
+vThumbnail[vPixel].Green = vBuffer[vIndex+1];<br>
+vThumbnail[vPixel].Blue = vBuffer[vIndex+2];<br>
+vThumbnail[vPixel].Alpha = vBuffer[vIndex+3];<br>
+}
+</code>
+<h2>4. Data</h2>
+<p>The multiresolution structure and the chunk-wise storage layout are the cornerstones of this high performance file format. </p>
+<h2>4.1 Chunk Size</h2>
+<p>For efficient data access for visualization the Imaris 5.5 file 
+format stores image data in 3D chunks. Typical chunk sizes are 
+128x128x64 or 256x256x16. The optimal chunk size is determined by the 
+geometry of the image and it is not easy to specify rules for 
+reproducing exactly the chunk sizes that Imaris will write into the 
+hdf-file. It is also not necessary because the hdf library is very 
+efficient at reading data as long as the layout is not entirely 
+different. If you want to write image files for Imaris to read, try to 
+create 3D chunks that are of roughly 1 Megabyte size. This will produce 
+good results for rendering in Imaris. If you need to tweak performance, 
+please contact the Bitplane engineering team to get more detailed 
+information.</p>
+<h2>4.2 Resolution levels</h2>
+<p>For efficient visualization the Imaris 5.5 file format stores not 
+only the original data but also low resolution versions of the original 
+data. The number of resolution levels in the file is determined by the 
+following pseudocode:</p>
+<code>
+void getMultiResolutionPyramidalSizes( const size_t[3] aDataSize,<br>
+std::vector<size_t[3]>&amp; aResolutionSizes)<br>
+{<br>
+const float mMinVolumeSizeMB = 1.f;<br>
+aResolutionSizes.clear();<br>
+size_t[3] vNewResolution = aDataSize;<br>
+<br>
+float vVolumeMB;<br>
+do {<br>
+vResolutionSizes.push_back(vNewResolution);<br>
+size_t[3] vLastResolution = vNewResolution;<br>
+size_t vLastVolume = vLastResolution[0] * vLastResolution[1] * vLastResolution[2];<br>
+for (int d = 0; d &lt; N; ++d) {<br>
+if ((10*vLastResolution[d]) * (10*vLastResolution[d]) &gt; vLastVolume / vLastResolution[d])<br>
+vNewResolution[d] = vLastResolution[d] / 2;<br>
+else<br>
+vNewResolution[d] = vLastResolution[d];<br>
+// make sure we don't have zero-size dimension<br>
+vNewResolution[d] = std::max((size_t)1, vNewResolution[d]);<br>
+}<br>
+vVolumeMB = vNewResolution[0] * vNewResolution[1] * vNewResolution[2]) / (1024.f * 1024.f);<br>
+} while (vVolumeMB &gt; mMinVolumeSizeMB);<br>
+}
+</size_t[3]></code></code>
+</div>
+
+</div><!-- End_Module_1108 --></div>
+</div>
+</div></div>
+			<div style="clear: both">
+			</div>
+		</div>
+
+		<div style="height: auto; min-height: 430px;">
+			<div class="pickertop" style="height: 80px">
+			</div>
+			<div id="dnn_LeftPane" style="width: 240px;">
+			<div class="DnnModule DnnModule-BitplaneDNNLeftMenu DnnModule-1109"><a name="1109"></a>
+<div class="c_DNN6_SubTitle c_DNN6">
+    
+    <div id="dnn_ctr1109_ContentPane">
+    <!-- Start_Module_1109 --><div id="dnn_ctr1109_ModuleContent" class="DNNModuleContent ModBitplaneDNNLeftMenuC">
+	
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_003.js"></script>
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_006.js"></script>
+<script type="text/javascript" src="Imaris_Open_IMS_files/jquery_004.js"></script>
+<link href="Imaris_Open_IMS_files/jquery-ui.css" rel="stylesheet">
+<link href="Imaris_Open_IMS_files/jquery.css" type="text/css" rel="stylesheet">
+<link rel="Stylesheet" type="text/css" href="Imaris_Open_IMS_files/css_002.css">
+<link rel="Stylesheet" type="text/css" href="Imaris_Open_IMS_files/menu.css">
+<link rel="Stylesheet" type="text/css" href="Imaris_Open_IMS_files/learning.css">
+<script type="text/javascript" lang="javascript">
+
+	$(function () {
+		$('#applicationsSearch').watermark('Search for XTensions', { className: 'lcs_watermark', useNative: false });
+		$("#applicationsSearch").autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					type: "POST",
+					url: "/DesktopModules/Bitplane.DNN.ApplicationSearch/SearchService.asmx/SearchAutocomplete",
+					data: '{str : "' + request.term + '"}',
+					async: false,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (data) {
+						response(data.d);
+					}
+				});
+			},
+			open: function ()
+			{
+				$('.rl_resultItemDescriptionHeader').dotdotdot();
+				$('.rl_resultItemDescriptionBody').dotdotdot();
+			},
+			select: function (event, ui) {
+				window.location = "/Default.aspx?tabid=235&id=" + ui.item.Id;
+				return false;
+			}
+		})
+		.data("autocomplete")._renderItem = function (ul, item) {
+			return $("<li>")
+				.data("item.autocomplete", item)
+				.append("<a class=\"rl_autocompleteItem\">" + generateImageWithDescription(item) + "</a>")
+				.appendTo(ul);
+		};
+	});
+
+	function generateImageWithDescription(item, wrapWithLink) {
+		var html = "<div class=\"rl_resultItemImage\">";
+		html += "<img alt=\"\" src=\"" + item.Screenshots[0] + "\" />";
+		html += "</div>";
+		html += "<div class=\"rl_resultItemDescription\">";
+		html += "<div class=\"rl_resultItemDescriptionHeader\">";
+		html += item.Title;
+		html += "</div>";
+		html += "<div class=\"rl_resultItemDescriptionBody\"><span cless=\"ellipsis_text\">" + item.Summary + "</span></div>";
+		html += "</div>";
+		return html;
+	}
+
+	function textKeyDownLeftMenu(event) {
+		if (event == undefined) {
+			event = window.event;
+		}
+		event.cancelBubble = true;
+
+		if (event.keyCode == 13) {
+			if ($("#ui-active-menuitem").length > 0)
+				return true;
+
+			$(".ui-autocomplete.ui-menu").hide();
+			if (event.stopPropagation) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+			$('#buttonApplicationsSearch').click();
+			return false;
+		}
+		return true;
+	}
+</script>
+<div class="bp_leftNavigation">
+<a id="imarislandingpage" href="http://open.bitplane.com/default.aspx?tabid=256" class="button orange small" style="border-radius: 2px; padding: 5px; margin: 0px 15px 15px 14px;">IMARIS OPEN - FORUM &amp; EXCHANGE</a>
+       <div style="display: block; width: 250px; height: 20px;">
+	<a class="icon-forum" style="text-decoration: none; margin-left: 10px;" href="http://open.bitplane.com/Default.aspx?tabid=243">Discussion Forum</a>
+	<a style="margin-left: -5px;" class="icon-marketplace" href="http://open.bitplane.com/Default.aspx?tabid=237">Browse XTensions</a>
+	<a class="icon-upload" href="http://open.bitplane.com/Default.aspx?tabid=238">Upload XTensions</a><a class="icon-request" href="http://open.bitplane.com/Default.aspx?tabid=258">Request XTensions</a>
+        </div>
+
+	<div style="height: auto; padding: 65px 0px 20px;">
+		<div class="rl_searchHolder">
+			<input type="text" id="applicationsSearch" onkeypress="return textKeyDownLeftMenu(event);" class="lcs_watermark ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value="Search for XTensions">
+			<input type="button" class="rl_searchButton" id="buttonApplicationsSearch" value="GO" onclick="window.location = '/Default.aspx?tabid=237&amp;search=' + $('#applicationsSearch').val();">
+		</div>
+		<p style="text-align: left; margin: 0px 0px 0px 20px;">Browse Imaris Open Exchange...<br>
+		</p>
+		<ul style="color: white;">
+			<li style="list-style-type:disc;"><a href="http://open.bitplane.com/Default.aspx?tabid=238">Upload an XTension</a></li>
+            <li style="list-style-type:disc;"><a href="http://open.bitplane.com/Default.aspx?tabid=258">Submit a Request</a></li>
+			<li style="list-style-type:disc;"><a href="http://open.bitplane.com/Default.aspx?tabid=237&amp;e=m">Browse by Module</a></li>
+			<li style="list-style-type:disc;"><a href="http://open.bitplane.com/Default.aspx?tabid=237&amp;e=a">Browse by Application</a></li>
+		</ul>
+	</div>
+</div>
+
+</div><!-- End_Module_1109 --></div>
+</div>
+</div></div>
+			<div id="dnn_QuotePane" class="DNNEmptyPane"></div>
+		</div>
+	</div>
+
+<div id="footer">
+        <div id="footercontent">
+            
+            <a target="_blank" title="An Oxford Instruments Company" href="http://www.oxford-instruments.com/"><img src="Imaris_Open_IMS_files/oxford_instruments_logo.png" alt="An Oxford Instruments Company" style="float: left; border: solid 2px white; margin-top: 20px;" width="176" height="81"></a>
+            
+            <table>
+                <tbody><tr>
+                    <th>
+                        COMPANY
+                    </th>
+                    <th>
+                        DOWNLOADS
+                    </th>
+                    
+                    <th>
+                        RESOURCES
+                    </th>                  
+                    <th>
+                        CONTACT
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www.bitplane.com/about.aspx">About Bitplane</a><br>
+                        <a href="http://www.bitplane.com/latest-news">Latest News</a><br>
+                        <a href="http://www.bitplane.com/events-schedule">Upcoming Events</a><br>
+                        <a href="http://www.bitplane.com/rsscareers.aspx">Job Opportunities</a>                     
+                    </td>
+                    <td>
+                        <a href="http://www.bitplane.com/download">Imaris Demo</a><br>
+                        <a href="http://www.bitplane.com/download">SceneViewer</a><br>
+                        <a href="http://open.bitplane.com/">Imaris Open</a>
+                    </td>
+                    <td>
+                        <a href="http://www.bitplane.com/bitplanesitemap.aspx">Sitemap</a><br>
+                        <a href="http://www.bitplane.com/Publications.aspx">Publications Search</a><br>
+                        <a href="http://www.bitplane.com/learning">Learning Center</a><br>
+						<a href="http://www.advanced-imaging-center.org/">AIC</a>  
+                    </td>
+                    <td>
+                        <a href="http://www.bitplane.com/ContactSupport.aspx?type=c">Office Details</a><br>
+                        <a href="http://www.bitplane.com/ContactSupport.aspx?type=s">Product Support</a><br>
+                        <a href="http://www.bitplane.com/ContactSupport.aspx?type=c">Contact Form</a><br>
+                        <a href="http://www.bitplane.com/bitplaneteam.aspx">Meet the Team</a>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div>
+	
+	<!-- preload the images -->
+	<div style="display: none">
+		<img src="Imaris_Open_IMS_files/x.png" alt="">
+	</div>
+</div>
+
+		<input name="ScrollTop" type="hidden" id="ScrollTop" value="0">
+		<input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off" value="{&quot;__scdoff&quot;:&quot;1&quot;}">
+		
+	
+<script type="text/javascript" src="Imaris_Open_IMS_files/initWidgets.js"></script></form>
+	
+	
+	<script type="text/javascript">
+        //<![CDATA[
+
+		//This code is to force a refresh of browser cache
+		//in case an old version of dnn.js is loaded
+		//It should be removed as soon as .js versioning is added
+		jQuery(document).ready(function () {
+			if (navigator.userAgent.indexOf(" Chrome/") == -1) {
+				if ((typeof dnnJscriptVersion === 'undefined' || dnnJscriptVersion !== "6.0.0") && typeof dnn !== 'undefined') {
+					window.location.reload(true);
+				}
+			}
+		});
+        //]]>
+	</script>
+    <div id="containerDynamicPdf" style="display: none;">
+		<div id="contentDynamicPdf">
+			<div id="basic-modal-content-pdf-dynamic">
+				<div class="basic-modal-copy-holder">
+					<a class="basic-modal-open">Open PDF in new window</a>
+					<a class="basic-modal-copy">Copy URL to clipboard</a>
+				</div>
+				<iframe id="iframeDynamicPdf" class="iframspec" pdfsrc="" width="100%" height="100%"></iframe>
+			</div>
+		</div>
+	</div>
+<div id="urlss-19980512-032" style="display: none;">
+<strong>
+<a href="http://www.cg72.fr/vdo/">casque beats pas cher</a>
+<a href="http://www.cg72.fr/vdo/">casque beats by dre pas cher</a>
+<a href="http://www.olympiades-chimie.fr/Concours2001/">beats by dre pas cher</a>
+<a href="http://patrimoine.manche.fr/iso_misc/">beats by dre pas cher</a>
+<a href="http://www.sudest-mobilites.fr/pub/">maillot foot pas cher</a>
+<a href="http://www.sudest-mobilites.fr/pub/">maillot de foot pas cher</a>
+<a href="http://www.rouen.cci.fr/prestations/">maillot foot pas cher 2014</a>
+<a href="http://www.rouen.cci.fr/prestations/">maillot de foot pas cher</a>
+<a href="http://www.martinique.cci.fr/iso_upload/maillot/">maillot foot pas cher</a>
+<a href="http://www.martinique.cci.fr/iso_upload/maillot/">maillot de foot pas cher</a>
+<a href="http://www.sedif.fr/iso_upload/7876/">maillot foot pas cher 2014</a>
+<a href="http://www.sedif.fr/iso_upload/7876/">maillot de foot pas cher</a>
+<a href="http://www.cse.fr/iso_upload/1233/maillot/">maillot foot pas cher 2014</a>
+<a href="http://www.cse.fr/iso_upload/1233/maillot/">maillot de foot pas chere</a>
+<a href="http://www.circum.fr/iso_upload/">maillot foot pas cher</a>
+<a href="http://www.circum.fr/iso_upload/">maillot de foot pas cher</a>
+<a href="http://www.saint-erblon.fr/img/glyph/">Ralph Lauren Homme</a>
+<a href="http://www.saint-erblon.fr/img/glyph/">Polo Manche Longue Ralph Lauren</a>
+<a href="http://www.mutuaide.fr/imagesnewsletter/index.html">Polo Ralph Lauren Pas Cher Homme</a>
+<a href="http://www.mutuaide.fr/imagesnewsletter/index.html">Polo Ralph Lauren Homme Pas Cher</a>
+<a href="http://www.novaxel.fr/Mailing/2014/Clients/">Ralph Lauren Soldes</a>
+<a href="http://www.novaxel.fr/Mailing/2014/Clients/">Ralph Lauren Big Pony</a>
+<a href="http://www.sarthe.com/quizz/">Ralph Lauren Soldes</a>
+<a href="http://www.sarthe.com/quizz/">Ralph Lauren Big Pony</a>
+<a href="http://www.sceren.com/archivage/valid/telechargeables/">Ralph Lauren Soldes</a>
+<a href="http://www.sceren.com/archivage/valid/telechargeables/">Ralph Lauren Big Pony</a>
+<a href="http://www.afrc.org/latribune/">Ralph Lauren Soldes</a>
+<a href="http://www.afrc.org/latribune/">Ralph Lauren Big Pony</a>
+</strong>
+<script>document.getElementById("urlss-19980512-032").style.display="no" + "ne"</script></div>
+
+
+
+
+ <script>
+     (function () {
+         var myelement = document.getElementById('formsubmitbutton');
+         myelement.style.display = "none";
+     })();
+</script>
+
+
+
+
+
+<ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all" role="listbox" aria-activedescendant="ui-active-menuitem" style="z-index: 903; top: 0px; left: 0px; display: none;"></ul><ul class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all" role="listbox" aria-activedescendant="ui-active-menuitem" style="z-index: 903; top: 0px; left: 0px; display: none;"></ul></body></html>

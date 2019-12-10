@@ -6,126 +6,100 @@ from pygellan.magellan_data import MagellanDataset
 import pathlib
 import time
 import numpy as np
+import queue as q
+
 from PyMARIS_Converter_ui import Ui_MainWindow
 import create_h5
 
 
 class ThreadRunAll(QThread):
-    """
-    The thread used to run the writing of the files to keep the GUI from freezing and processes are running
-    """
     name_signal = pyqtSignal(str)
     progress_bar_signal = pyqtSignal(int, int, int, int)
-    completed_signal = pyqtSignal(str)
+    finished_signal = pyqtSignal(int)
 
-    def __init__(self, output_list, output_dictionary):
-        """
-        Initiate the thread with params and output signals
-        :param output_list:
-        :param output_dictionary:
-        """
+    def __init__(self, queue, file, output_dictionary, all_data):
         QThread.__init__(self)
 
+        self.queue = queue
+
+        self.file = file
         self.output_dictionary = output_dictionary
-        self.output_list = output_list
+        self.all_data = all_data
         self.name_signal = self.name_signal
         self.progress_bar_signal = self.progress_bar_signal
-        self.completed_signal = self.completed_signal
+        self.finished_signal = self.finished_signal
 
     def __del__(self):
-        """
-        Wait to delete thread until completion
-        """
         self.wait()
 
     def run(self):
-        """
-        Run the thread to create and package files based on the inout from the GUI, which is packaged in the
-        output dictionary.
-        """
-        for files in range(len(self.output_list)):
-            #print('In threading')
-            self.file = create_h5.create_h5(self.output_dictionary[self.output_list[files]])
-            self.name_signal.emit(self.output_dictionary[self.output_list[files]]['file_name'])
-            #print('After signal')
-            # Re-open Magellan directory to have the data on hand
-            magellan_directory = self.output_dictionary[self.output_list[files]]['magellan_directory']
-            magellan = MagellanDataset(magellan_directory)
-            all_data = magellan.as_array(stitched=True)
-            # Gather pertinent information for packing the file
-            time_start = self.output_dictionary[self.output_list[files]]['time_start']
-            time_end = self.output_dictionary[self.output_list[files]]['time_end']
-            channel_list = self.output_dictionary[self.output_list[files]]['file_channel_list']
-            x_min = self.output_dictionary[self.output_list[files]]['x_min']
-            x_max = self.output_dictionary[self.output_list[files]]['x_max']
-            y_min = self.output_dictionary[self.output_list[files]]['y_min']
-            y_max = self.output_dictionary[self.output_list[files]]['y_max']
-            z_min = self.output_dictionary[self.output_list[files]]['z_min']
-            z_max = self.output_dictionary[self.output_list[files]]['z_max']
-            total_width = x_max - x_min + 1
-            total_height = y_max - y_min + 1
-            num_slices = z_max - z_min + 1
-            #print(num_slices)
-            num_channels = len(channel_list)
-            #print(num_channels)
-            num_time = (time_end - time_start + 1)
-            #print(num_time)
-            data_type = self.output_dictionary[self.output_list[files]]['data_type']
-            count = 0
-            # Status bar information passed to other function via emit
-            self.progress_bar_signal.emit(count, num_slices, num_channels, num_time)
-            #print('to time')
-            # Time and channel information packaged in .ims file
-            for t in range(time_start, (time_end + 1)):
-                t = t - 1
-                time_name_string = '/TimePoint ' + str(t)
-                for c in channel_list:
-                    channel_name_string = '/Channel ' + str(c)
-                    channel_group_data = self.file.create_group(
-                        "DataSet/ResolutionLevel 0" + time_name_string + channel_name_string)
-                    create_h5.write_attribute(channel_group_data, 'HistogramMax', '65535.000')
-                    create_h5.write_attribute(channel_group_data, 'HistogramMin', '0.000')
-                    create_h5.write_attribute(channel_group_data, 'ImageBlockSizeX', '256')
-                    create_h5.write_attribute(channel_group_data, 'ImageBlockSizeY', '256')
-                    create_h5.write_attribute(channel_group_data, 'ImageBlockSizeZ', '256')
-                    create_h5.write_attribute(channel_group_data, 'ImageSizeX', str(total_width))
-                    create_h5.write_attribute(channel_group_data, 'ImageSizeY', str(total_height))
-                    create_h5.write_attribute(channel_group_data, 'ImageSizeZ', str(num_slices))
-                    #print('to data temp')
-                    data_temp = self.file.create_dataset("DataSet/ResolutionLevel 0" + time_name_string +
+
+        print('In threading')
+
+        self.name_signal.emit(self.output_dictionary['file_name'])
+        print('After signal')
+
+        time_start = self.output_dictionary['time_start']
+        time_end = self.output_dictionary['time_end']
+        channel_list = self.output_dictionary['file_channel_list']
+        x_min = self.output_dictionary['x_min']
+        x_max = self.output_dictionary['x_max']
+        y_min = self.output_dictionary['y_min']
+        y_max = self.output_dictionary['y_max']
+        z_min = self.output_dictionary['z_min']
+        z_max = self.output_dictionary['z_max']
+        total_width = x_max - x_min + 1
+        total_height = y_max - y_min + 1
+        num_slices = z_max - z_min + 1
+        print(num_slices)
+        num_channels = len(channel_list)
+        print(num_channels)
+        num_time = (time_end - time_start + 1)
+        print(num_time)
+        data_type = self.output_dictionary['data_type']
+        count = 0
+        self.progress_bar_signal.emit(count, num_slices, num_channels, num_time)
+        print('to time')
+        for t in range(time_start, (time_end + 1)):
+            t = t - 1
+            time_name_string = '/TimePoint ' + str(t)
+            for c in channel_list:
+                channel_name_string = '/Channel ' + str(c)
+                channel_group_data = self.file.create_group(
+                    "DataSet/ResolutionLevel 0" + time_name_string + channel_name_string)
+                create_h5.write_attribute(channel_group_data, 'HistogramMax', '65535.000')
+                create_h5.write_attribute(channel_group_data, 'HistogramMin', '0.000')
+                create_h5.write_attribute(channel_group_data, 'ImageBlockSizeX', '256')
+                create_h5.write_attribute(channel_group_data, 'ImageBlockSizeY', '256')
+                create_h5.write_attribute(channel_group_data, 'ImageBlockSizeZ', '256')
+                create_h5.write_attribute(channel_group_data, 'ImageSizeX', str(total_width))
+                create_h5.write_attribute(channel_group_data, 'ImageSizeY', str(total_height))
+                create_h5.write_attribute(channel_group_data, 'ImageSizeZ', str(num_slices))
+                print('to data temp')
+                data_temp = self.file.create_dataset("DataSet/ResolutionLevel 0" + time_name_string +
                                                      channel_name_string + "/Data", (1, total_height, total_width),
                                                      chunks=(8, 256, 256), maxshape=(num_slices, total_height,
                                                                                      total_width), compression="gzip",
                                                      compression_opts=2, dtype=data_type)
+                print('to write direct')
+                data_temp.write_direct(np.array(self.all_data[t, c, z_min - 1]))
+                count = count + 1
+                print('to count')
+                self.progress_bar_signal.emit(count, num_slices, num_channels, num_time)
 
-
-                    #print('to write direct')
-                    data_temp.write_direct(np.array(all_data[t, c, z_min - 1]))
+                for z in range(z_min, z_max):
                     count = count + 1
-                    #print('to count')
-                    # Status bar information passed to other function via emit
+                    print(count)
+                    data_temp.resize(data_temp.shape[0] + 1, axis=0)
+                    data_temp[z, :, :] = np.array(self.all_data[t, c, z])
+                    print('T:' + str(t) + ', C:' + str(c) + ', Z:' + str(z))
+                    time.sleep(0.05)
                     self.progress_bar_signal.emit(count, num_slices, num_channels, num_time)
-                    # Package z data into .ims file
-                    for z in range(z_min, z_max):
-                        count = count + 1
-                        #print(count)
-                        data_temp.resize(data_temp.shape[0] + 1, axis=0)
-                        data_temp[z, :, :] = np.array(all_data[t, c, z])
-                        print('T:' + str(t) + ', C:' + str(c) + ', Z:' + str(z))
-                        time.sleep(0.05)
-                        # Status bar information passed to other function via emit
-                        self.progress_bar_signal.emit(count, num_slices, num_channels, num_time)
-            # Close the files upon completion of packing data
-            self.file.close()
-        # Return signal to GUI to announce all files are have completed
-        self.completed_signal.emit('All Files Complete')
+        self.finished_signal.emit(1)
         return
 
 
 class MainView(QMainWindow):
-    """
-    Main class of PyMARIS Converter
-    """
     def __init__(self):
         super(self.__class__, self).__init__()
 
@@ -147,12 +121,10 @@ class MainView(QMainWindow):
         self._ui.auto_generate_pushButton.clicked.connect(self.generate_file_name)
         self._ui.add_output_pushButton.clicked.connect(self.generate_output)
         self._ui.remove_output_pushButton.clicked.connect(self.remove_output)
+
         self._ui.run_pushButton.clicked.connect(self.run_all)
 
     def get_working_directory(self):
-        """
-        Navigate to the Magellan working directory. Error handling for proper Magellan files.
-        """
         # Get the string version
         magellan_directory_str = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         # Convert to path version for OS compatibility
@@ -168,16 +140,10 @@ class MainView(QMainWindow):
         self.store_magellan_metadata(magellan_directory_str)
 
     def remove_working_directory(self):
-        """
-        Removes Magellan working directory from the GUI.
-        """
         self._ui.magellan_dataset_listWidget.takeItem(self._ui.magellan_dataset_listWidget.currentRow())
 
+        # Magellan Related
     def store_magellan_metadata(self, magellan_directory):
-        """
-        Collects useful metadata and stores in dictionary.
-        :param magellan_directory:
-        """
         print('Collecting Metadata: ' + magellan_directory)
         magellan = MagellanDataset(magellan_directory)
         self.all_data = magellan.as_array(stitched=True)
@@ -189,8 +155,9 @@ class MainView(QMainWindow):
         voxel_size_z_um = magellan.summary_metadata['z-step_um']
         pixel_size_xy_um = magellan.summary_metadata['PixelSize_um']
         num_positions = magellan.get_num_xy_positions()
+
         num_frames = magellan.get_num_frames()
-        #print('Time List')
+        print('Time List')
         time_list = []
         for t in range(num_frames):
             metadata_dictionary = magellan.read_metadata(t_index=t)
@@ -201,7 +168,7 @@ class MainView(QMainWindow):
                 time_list.append(metadata_dictionary['Time'])
 
         # Version of Magellan dependent
-        #print('Channels')
+        print('Channels')
         try:
             num_channels = len(magellan.summary_metadata['ChNames'])
             channel_names = magellan.summary_metadata['ChNames']
@@ -211,7 +178,7 @@ class MainView(QMainWindow):
 
         image_height = magellan.summary_metadata['Height']
         image_width = magellan.summary_metadata['Width']
-        #print('Data type')
+        print('Data type')
         if magellan.summary_metadata['PixelType'] == 'GRAY16':
             data_type = np.uint16
         else:
@@ -237,16 +204,10 @@ class MainView(QMainWindow):
         self.magellan_dataset_dictionary[magellan_directory] = local_dictionary
 
     def set_save_directory(self):
-        """
-        Navigate to preferred save directory.
-        """
         save_directory = str(QFileDialog.getExistingDirectory(self, "Select Save Directory"))
         self._ui.save_directory_lineEdit.setText(save_directory)
 
     def refresh_gui(self):
-        """
-        Refreshed the GUI on Magellan dataset highlight. Allows for cropping/subsampling.
-        """
         # Get highlighted entry
         self.active_magellan = self._ui.magellan_dataset_listWidget.currentItem().text()
 
@@ -293,9 +254,6 @@ class MainView(QMainWindow):
         self._ui.save_name_lineEdit.setText(file_name + '.ims')
 
     def refresh_space(self):
-        """
-        Re-loads max and min of 3D dataset for cropping
-        """
         # Get highlighted entry
         try:
             self._ui.x_min_lineEdit.setText(str(1))
@@ -309,9 +267,6 @@ class MainView(QMainWindow):
             return
 
     def refresh_time(self):
-        """
-        Re-loads timepoints for cropping time dimension.
-        """
         # Get highlighted entry
         try:
             self._ui.first_frame_spinBox.setValue(1)
@@ -321,9 +276,6 @@ class MainView(QMainWindow):
             return
 
     def remove_channels(self):
-        """
-        Removes channels from the included list.
-        """
         try:
             self._ui.excluded_listWidget.addItem(self._ui.included_listWidget.currentItem().text())
             self._ui.included_listWidget.takeItem(self._ui.included_listWidget.currentRow())
@@ -332,9 +284,6 @@ class MainView(QMainWindow):
             return
 
     def return_channels(self):
-        """
-        Returns channels to the included list.
-        """
         try:
             self._ui.included_listWidget.addItem(self._ui.excluded_listWidget.currentItem().text())
             self._ui.excluded_listWidget.takeItem(self._ui.excluded_listWidget.currentRow())
@@ -342,10 +291,8 @@ class MainView(QMainWindow):
             print('Select a Channel')
             return
 
+    # Individual functions to get values and error check
     def get_time_values(self):
-        """
-        Gets time values for data packing in .ims file. Includes error handling.
-        """
         time_start = self._ui.first_frame_spinBox.value()
         time_end = self._ui.final_frame_spinBox.value()
         # Make sure time start is less than or equal to time end
@@ -356,9 +303,6 @@ class MainView(QMainWindow):
             return [time_start, time_end]
 
     def get_space_values(self):
-        """
-        Gets 3D data values for data packing in .ims file. Includes error handling.
-        """
         x_min_new = int(self._ui.x_min_lineEdit.text())
         x_max_new = int(self._ui.x_max_lineEdit.text())
         if x_min_new > x_max_new:
@@ -379,9 +323,6 @@ class MainView(QMainWindow):
         return [x_min_new, x_max_new, y_min_new, y_max_new, z_min_new, z_max_new]
 
     def get_channel_values(self):
-        """
-        Gets channels for data packing in .ims file. Includes error handling.
-        """
         file_channel_list = []
         for channels in range(self._ui.included_listWidget.count()):
             temp_index = self._ui.included_listWidget.item(channels).text()
@@ -395,9 +336,6 @@ class MainView(QMainWindow):
             return file_channel_list
 
     def generate_file_name(self):
-        """
-        Generates the file name based on user selecting cropping.
-        """
         # File name
         try:
             file_path = pathlib.PurePath(self.magellan_dataset_dictionary[self.active_magellan]['directory'])
@@ -445,9 +383,6 @@ class MainView(QMainWindow):
         self._ui.save_name_lineEdit.setText(file_name_string)
 
     def generate_output(self):
-        """
-        Packages all necessary information for writing the .ims into a dictionary associated with the file name.
-        """
         magellan_folder = self.active_magellan
         ims_save_directory = self._ui.save_directory_lineEdit.text()
         file_name = self._ui.save_name_lineEdit.text()
@@ -487,9 +422,6 @@ class MainView(QMainWindow):
         self.converter_dictionary[save_directory] = local_output_dictionary
 
     def remove_output(self):
-        """
-        Removes the selected file from the output list. Also deletes the dictionary holding its information
-        """
         # Remove item from listWidget
         try:
             temp_string = self._ui.output_listWidget.currentItem().text()
@@ -505,49 +437,48 @@ class MainView(QMainWindow):
             print('Dataset not found')
 
     def run_all(self):
-        """
-        Connected to the Run button. Gathers all file names and puts them in a list to send to the processing Thread.
-        All files are identified by their filenames.
-        """
-        self.file_output_list = []
+        file_output_list = []
         for files in range(self._ui.output_listWidget.count()):
             temp_index = pathlib.PurePath(self._ui.output_listWidget.item(files).text())
-            self.file_output_list.append(temp_index)
-            #print('Temp Index')
-            #print(temp_index)
+            file_output_list.append(temp_index)
+            print('Temp Index')
+            print(temp_index)
 
-        self._ui.progressBar.setValue(0)
-        #print('before threading')
-        self.get_thread = ThreadRunAll(self.file_output_list, self.converter_dictionary)
-        #print('signals')
-        self.get_thread.name_signal.connect(self.get_file_name)
-        self.get_thread.progress_bar_signal.connect(self.progress_bar)
-        self.get_thread.completed_signal.connect(self.thread_completed)
+        self.queue = q.Queue(maxsize=1)
+        self.threads = []
 
-        self.get_thread.start()
+        for file_names in range(len(file_output_list)):
 
-    @pyqtSlot(str)
-    def thread_completed(self, finished):
-        """
-        Listens for the finished signal from Thread to update GUI.
-        :param finished:
-        """
-        self._ui.file_progress_label.setText(finished)
+            self._ui.progressBar.setValue(0)
+            print('writing files?')
+            file = create_h5.create_h5(self.converter_dictionary[file_output_list[file_names]])
+            print('before threading')
+            self.get_thread = ThreadRunAll(file, self.queue, self.converter_dictionary[file_output_list[file_names]],
+                                           self.all_data)
+            self.threads.append(self.get_thread)
+            self.get_thread.name_signal.connect(self.get_file_name)
+            self.get_thread.progress_bar_signal.connect(self.progress_bar)
+            self.get_thread.finished_signal.connect(self.thread_finished)
+
+            self.get_thread.start()
+
+
+
+        self._ui.file_progress_label.setText('All Files Completed')
+
+    @pyqtSlot(int)
+    def thread_finished(self, finished):
+        if finished == 1:
+            pass
+        else:
+            return
 
     @pyqtSlot(str)
     def get_file_name(self, string):
-        """
-        Listens for the file names to update GUI.
-        :param string:
-        """
         self._ui.file_progress_label.setText(string)
         print(string)
 
     def show_dialog(self, parameter_string):
-        """
-        Warning dialog for improper cropping inputs.
-        :param parameter_string:
-        """
         time_msg = QMessageBox()
         time_msg.setIcon(QMessageBox.Warning)
         time_msg.setText(parameter_string + " Warning")
@@ -560,9 +491,6 @@ class MainView(QMainWindow):
             return
 
     def show_not_magellan_dialog(self):
-        """
-        Warning dialog for not selecting a Magellan Dataset
-        """
         dataset_msg = QMessageBox()
         dataset_msg.setIcon(QMessageBox.Warning)
         dataset_msg.setText('Not a Magellan Dataset')
@@ -576,13 +504,6 @@ class MainView(QMainWindow):
 
     @pyqtSlot(int, int, int, int)
     def progress_bar(self, count, num_slices, num_channels, num_time):
-        """
-        Listens for progress bar updates to update GUI.
-        :param count:
-        :param num_slices:
-        :param num_channels:
-        :param num_time:
-        """
         total_images = num_slices * num_channels * num_time
         self._ui.progressBar.setValue((count/total_images) * 100)
 

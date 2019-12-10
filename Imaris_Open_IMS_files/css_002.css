@@ -1,0 +1,348 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#sticky {
+
+  }
+
+
+body
+{
+height: 0;
+width: 100%;
+margin: 0;
+}
+
+#container
+{
+ margin: 0 auto;
+ width: 1000px;
+ height: 100%;
+}
+
+#bg
+{
+ display: block;
+ width: 100%; 
+ position: relative;
+ z-index: 0;
+}
+
+#cameraspicker
+{
+display: block;
+width: 240px;
+height: auto;
+background: rgb(4,32,37); /* Old browsers */
+background: -moz-linear-gradient(left,  rgb(4,32,37) 1%, rgb(13,99,113) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgb(4,32,37)), color-stop(100%,rgb(13,99,113))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  rgb(4,32,37) 1%,rgb(13,99,113) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  rgb(4,32,37) 1%,rgb(13,99,113) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  rgb(4,32,37) 1%,rgb(13,99,113) 100%); /* IE10+ */
+background: linear-gradient(to right,  rgb(4,32,37) 1%,rgb(13,99,113) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#042025', endColorstr='#0d6371',GradientType=1 ); /* IE6-9 */
+ webkit-box-shadow: 3px 3px 5px #9a9b9c;
+ box-shadow: 3px 3px 5px #9a9b9c; 
+  -moz-border-radius: 0em 0em 0em 0.3em;
+  -webkit-border-radius: 0em 0em 0em 0.3em;
+  border-radius: 0em 0em 0em 0.6em;
+ /* font-size: 2em;*/
+
+}
+
+#cameraspicker.stick {
+  position: fixed;
+  top: -80px;
+  z-index: -1;
+  }
+
+#cameraspicker p
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 12px;
+color: white;
+font-weight: bold;
+  text-align: center;
+
+}
+
+.pickertop
+{
+display: block;
+height: 85px;
+width: 299px;
+}
+
+/*.tbcameraspicker
+{
+	padding: 18px;
+	padding-top: 5px;
+}
+
+.tbcameraspicker td
+{
+	font-family: 'Arimo', sans-serif;
+ font-size: 11px;
+color: white;
+padding: 4px;
+}*/
+
+.tbcameraspicker td select
+{
+font-size: 10px;
+width: 103px;
+float: right;
+}
+
+#toplogo {
+    background: -webkit-linear-gradient(left, #010146 0%,#1C2674 100%);
+	background: -moz-linear-gradient(left, #010146 0%, #1C2674 100%);
+	background: -o-linear-gradient(left, #010146 0%,#1C2674 100%);
+	background: -ms-linear-gradient(left, #010146 0%,#1C2674 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010146', endColorstr='#1C2674',GradientType=1 );    display: block;
+    float: left;
+    height: 80px;
+    position: relative;
+    width: 240px;
+    z-index: 999;
+}
+
+#toplinks
+{
+ display: block;
+ width: 760px;
+ height: 45px;
+ background: #1C2674;
+ webkit-box-shadow: 3px 3px 5px 9a9b9c;
+ box-shadow: 3px 3px 5px 9a9b9c;
+ float: right;
+ padding-top:4px;
+}
+
+#toplinks ul
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 14px;
+ list-style: none;
+ line-height: 14px;
+ margin-left: 0px;
+}
+
+#toplinks ul li
+{
+ float: left;
+ margin-right: 40px;
+}
+
+#toplinks ul li.search
+{
+ float: right;
+ margin-right: 0px;
+ margin-top: -9px;
+}
+
+#toplinks ul li a
+{
+ text-decoration: none;
+  color: #fff;
+  font-weight:bold;
+}
+
+#toplinks ul li a:hover
+{
+ color: #e98300;
+}
+
+.toplogo
+{
+ margin: 15px;	
+}
+
+#maincontent
+{
+	display: block;
+	width: 100px;
+	height: 100px;
+	background: white;
+	position: relative;
+	top: 0px;
+	width: 698px;
+	min-height:800px;
+	height: auto;
+	webkit-box-shadow: 1px 10px 20px black;
+ 	box-shadow: 1px 10px 20px #161616;
+	float: right;
+	margin-top: 0px;
+	margin-bottom: 40px;
+	border-right: solid 1px #DFDFDF;
+	border-top: solid 1px #DFDFDF;
+	border-left: solid 1px #DFDFDF;
+	padding: 40px 30px 40px 30px; 
+
+}
+
+h1
+{
+font-family: 'Arimo', sans-serif;
+font-size: 22px;
+font-weight: bold;
+color: #002d3f;
+}
+
+
+p
+
+{
+font-family: 'Arimo', sans-serif;
+font-size: 12px;
+color: black;
+line-height: 18px;
+}
+
+h2
+
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 12px;
+color: white;
+font-weight: bold;
+}
+
+h3
+
+{
+font-family: 'Arimo', sans-serif;
+font-size: 18px;
+font-weight: bold;
+color: #002d3f;
+}
+
+#relatedproducts {
+position: absolute;
+top: 40px;
+left: 580px;
+z-index: 910;
+}
+
+#relatedproducts select
+{
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url(../images/select-arrow.png), 
+    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: 12px;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;	
+  max-width: 250px;	
+}
+
+#lefthandquote
+{
+display: block;
+position: absolute;
+font-family: 'Amaranth', sans-serif;
+font-size: 20px;
+width: 490px;
+margin: 60px 0px 80px 0px;
+color: #4d4f53;
+line-height: 35px;
+width: 220px;
+z-index: -3;
+/*top: 510px;*/
+}
+
+#lefthandquote span
+{
+color: #e98300;	
+text-shadow: #9a9b9c 3px 3px 4px;
+font-size: 50px;
+line-height: 20px;
+padding-top: 30px;
+}
+
+#lefthandquote p
+{
+	font-family: 'Arimo', sans-serif;
+font-size: 12px;
+font-weight: bold;
+margin-top: 15px;
+margin-left: 28px;
+color: #4d4f53;
+line-height: 22px;
+}
+
+#lefthandquote p a
+{
+color: #002d3f;	
+text-decoration: underline;
+}
+
+#lefthandquotemark
+{
+color: #e98300;	
+text-shadow: #9a9b9c 3px 3px 4px;
+font-size: 30px;
+line-height: 20px;
+margin-top: 116px;	
+margin-left: 168px;
+position: absolute;
+}
+
+.menubullets
+{
+	margin-left: -15px;	
+	margin-top: 10px;
+}
+
+.menubullets li
+{
+font-size: 12px;
+	font-family: 'Arimo', sans-serif;
+	color: black;
+	margin-bottom: 10px;
+}
+
+
+
+.generalbullets
+{
+	margin-top: 25px;
+}
+
+.generalbullets li
+{
+font-size: 12px;
+	font-family: 'Arimo', sans-serif;
+	color: black;
+	margin-bottom: 10px;
+}
+
+
+
+/* developer changes  */
+.tbcameraspicker
+{
+   padding: 4px 12px 11px;
+}
+
+
+.tbcameraspicker td
+{
+	font-family: 'Arimo', sans-serif;
+ font-size: 11px;
+color: white;
+padding: 4px;
+}

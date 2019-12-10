@@ -3,13 +3,13 @@ import h5py
 from write_functions import write_attribute
 from pygellan.magellan_data import MagellanDataset
 """
-data_path = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2'
-save_path = 'E:\\Data\\TestData\\MagellanTest'
-save_name = 'E:\\Data\\TestData\\MagellanTest\\201978_AgedOvary_Nobox_3umSteps_2\\test.ims'
+data_path = 'E:\\...\\201978_AgedOvary_Nobox_3umSteps_2'
+save_path = 'E:\\...\\MagellanTest'
+save_name = 'E:\\...\\201978_AgedOvary_Nobox_3umSteps_2\\test.ims'
 """
-data_path = 'E:\\Data\\SPIM\\Cortex_3umStep_1'
-save_path = 'E:\\Data\\SPIM'
-save_name = 'E:\\Data\\SPIM\\Cortex_3umStep_1_test.ims'
+data_path = 'E:\\...\\Cortex_3umStep_1'
+save_path = 'E:\\...\\SPIM'
+save_name = 'E:\\...\\Cortex_3umStep_1_test.ims'
 
 magellan = MagellanDataset(data_path)
 

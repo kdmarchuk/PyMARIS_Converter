@@ -3,9 +3,9 @@ import numpy as np
 from pygellan.magellan_data import MagellanDataset
 import matplotlib.pyplot as plt
 
-#data_path = 'C:\\Users\\Kyle\\Desktop\\test_1'
-#data_path = 'J:\\MagellanTest\\Cortex_10um_2timepoints_1'
-data_path = 'E:\\Data\\TestData\\MagellanTest\\PyMARIS_test_z10_c4_t3_1'
+#data_path = 'C:\\...\\test_1'
+#data_path = 'J:\\...\\Cortex_10um_2timepoints_1'
+data_path = 'E:\\...\\PyMARIS_test_z10_c4_t3_1'
 
 magellan = MagellanDataset(data_path)
 #channel_list = magellan.get_channel_names()

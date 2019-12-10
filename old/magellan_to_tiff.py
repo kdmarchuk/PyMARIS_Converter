@@ -4,10 +4,10 @@ from pygellan.magellan_data import MagellanDataset
 import tifffile as tf
 import matplotlib.pyplot as plt
 
-#data_path = 'C:\\Users\\Kyle\\Desktop\\test_1'
-data_path = 'J:\\MagellanTest\\Cortex_10um_2timepoints_1'
-save_path = 'J:\\MagellanTest\\Cortex_10um_2timepoints_1'
-save_name = 'J:\\MagellanTest\\Cortex_10um_2timepoints_1\\test.tif'
+#data_path = 'C:\\...\\test_1'
+data_path = 'J:\\...\\Cortex_10um_2timepoints_1'
+save_path = 'J:\\...\\Cortex_10um_2timepoints_1'
+save_name = 'J:\\...\\Cortex_10um_2timepoints_1\\test.tif'
 
 magellan = MagellanDataset(data_path)
 

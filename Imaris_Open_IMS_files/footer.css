@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+form {
+margin-bottom:0px;	
+}
+
+#footer
+{
+display: block;
+width: 100%;
+background: #1C2674;
+height: 145px;
+clear: both;
+padding-top: 5px;
+}
+
+#footercontent
+{
+margin: 0 auto;
+width: 1000px;
+color: #4d4f53;
+font-family: 'Arimo', sans-serif;
+font-size: 0.75em;
+}
+
+#footercontent table
+{
+width: 65%;
+margin-top: 15px;
+float:right;
+}
+
+#footercontent th
+{
+vertical-align: top;
+text-align: left;
+height: 25px;
+cursor:default;
+color: #e98300;
+
+}
+
+#footercontent td
+{
+line-height: 1.7em;
+vertical-align: top;
+width: 143px;
+
+}
+
+#footercontent td a
+{
+	text-decoration: none;
+	color: #fff;
+
+}
+
+#footercontent td a:hover
+{
+	color: #e98300;
+		cursor:pointer;
+}

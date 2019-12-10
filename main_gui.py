@@ -1,16 +1,16 @@
 from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QAbstractItemView, QMessageBox, QGraphicsRectItem, QFileDialog
 #from PyQt5.QtCore import pyqtSlot, Qt, QRectF, QCoreApplication
 #from PyQt5.QtGui import QPixmap, QColor
-from PyQt5.QtCore import *
+import sys
 from PyQt5.QtGui import *
 from pygellan.magellan_data import MagellanDataset
 import pathlib
 import time
-#import pyqtgraph as pg
+import threading_PyMARIS_Converter
 import numpy as np
 
 from PyMARIS_Converter_ui import Ui_MainWindow
-import write_functions
+import threading
 import create_h5
 
 
@@ -72,12 +72,18 @@ class MainView(QMainWindow):
         num_positions = magellan.get_num_xy_positions()
 
         num_frames = magellan.get_num_frames()
+        print('Time List')
         time_list = []
         for t in range(num_frames):
             metadata_dictionary = magellan.read_metadata(t_index=t)
-            time_list.append(metadata_dictionary['TimeReceivedByCore'])
+            print(metadata_dictionary)
+            try:
+                time_list.append(metadata_dictionary['TimeReceivedByCore'])
+            except Exception:
+                time_list.append(metadata_dictionary['Time'])
 
         # Version of Magellan dependent
+        print('Channels')
         try:
             num_channels = len(magellan.summary_metadata['ChNames'])
             channel_names = magellan.summary_metadata['ChNames']
@@ -87,7 +93,7 @@ class MainView(QMainWindow):
 
         image_height = magellan.summary_metadata['Height']
         image_width = magellan.summary_metadata['Width']
-
+        print('Data type')
         if magellan.summary_metadata['PixelType'] == 'GRAY16':
             data_type = np.uint16
         else:
@@ -339,10 +345,17 @@ class MainView(QMainWindow):
         for files in range(self._ui.output_listWidget.count()):
             temp_index = pathlib.PurePath(self._ui.output_listWidget.item(files).text())
             file_output_list.append(temp_index)
+            print('Temp Index')
+            print(temp_index)
 
-        file = create_h5.create_h5(self.converter_dictionary[file_output_list[0]])
-        print('starting to write')
-        self.write_data(file, self.converter_dictionary[file_output_list[0]])
+        for file_names in range(len(file_output_list)):
+            print('writing files?')
+            file = create_h5.create_h5(self.converter_dictionary[file_output_list[file_names]])
+            print('before threading')
+            self.launch_threading(file, self.converter_dictionary[file_output_list[file_names]])
+            #self.write_data(file, self.converter_dictionary[file_output_list[file_names]])
+
+        self._ui.file_progress_label.setText('All Files Completed')
 
     def show_dialog(self, parameter_string):
         time_msg = QMessageBox()
@@ -369,6 +382,7 @@ class MainView(QMainWindow):
             return
 
     def write_data(self, file, output_dictionary):
+        self._ui.file_progress_label.setText(output_dictionary['file_name'])
         time_start = output_dictionary['time_start']
         time_end = output_dictionary['time_end']
         channel_list = output_dictionary['file_channel_list']
@@ -417,11 +431,13 @@ class MainView(QMainWindow):
                     data_temp.resize(data_temp.shape[0] + 1, axis=0)
                     data_temp[z, :, :] = np.array(self.all_data[t, c, z])
                     print('T:' + str(t) + ', C:' + str(c) + ', Z:' + str(z))
-                    #self._ui.file_progress_label.setText('Progress... T:' + str(t) + ', C:' + str(c) + ', Z:' + str(z))
+                    time.sleep(0.05)
                     self.progress_bar(count, num_slices, num_channels, num_time)
 
     def progress_bar(self, count, num_slices, num_channels, num_time):
         total_images = num_slices * num_channels * num_time
         self._ui.progressBar.setValue((count/total_images) * 100)
 
-
+    def launch_threading(self, file, output_dictionary):
+        t = threading.Thread(target=self.write_data(file, output_dictionary))
+        t.start()

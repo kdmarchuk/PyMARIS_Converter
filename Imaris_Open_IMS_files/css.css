@@ -1,0 +1,321 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+
+#sticky {
+
+  }
+
+
+body
+{
+height: 0;
+width: 100%;
+margin: 0;
+}
+
+#container
+{
+ margin: 0 auto;
+ width: 1000px;
+ height: 100%;
+}
+
+#bg
+{
+ display: block;
+ width: 100%; 
+ background: url('/images/body_bg_1px.png') top left repeat-x #ffffff;
+ position: absolute;
+ z-index: 0;
+}
+
+#cameraspicker
+{
+display: block;
+width: 240px;
+height: 500px;
+background: #0f303d; /* Old browsers */
+background: -moz-linear-gradient(left,  #0f303d 0%, #355f70 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0f303d), color-stop(100%,#355f70)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  #0f303d 0%,#355f70 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  #0f303d 0%,#355f70 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  #0f303d 0%,#355f70 100%); /* IE10+ */
+background: linear-gradient(left,  #0f303d 0%,#355f70 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f303d', endColorstr='#355f70',GradientType=1 ); /* IE6-9 */
+ webkit-box-shadow: 3px 3px 5px #9a9b9c;
+ box-shadow: 3px 3px 5px #9a9b9c; 
+  -moz-border-radius: 0em 0em 0em 0.3em;
+  -webkit-border-radius: 0em 0em 0em 0.3em;
+  border-radius: 0em 0em 0em 0.6em;
+  
+  /*font-size: 2em;*/
+ 
+}
+
+#cameraspicker.stick {
+  position: fixed;
+  top: -80px;
+  z-index: -1;
+  }
+
+#cameraspicker p
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 12px;
+color: white;
+font-weight: bold;
+  text-align: center;
+}
+
+.pickertop
+{
+display: block;
+height: 85px;
+width: 299px;
+}
+
+
+
+/*.tbcameraspicker td
+{
+	font-family: 'Arimo', sans-serif;
+ font-size: 11px;
+color: white;
+padding: 4px;
+}*/
+
+.tbcameraspicker td select
+{
+font-size: 10px;
+width: 103px;
+float: right;
+}
+
+#toplogo
+{
+ display: block;
+ width: 240px;
+ height: 80px;
+ background: white;
+ float: left;
+}
+
+#toplinks
+{
+ display: block;
+ width: 760px;
+ height: 40px;
+ background: #f8f8f8;
+ webkit-box-shadow: 3px 3px 5px #9a9b9c;
+ box-shadow: 3px 3px 5px #9a9b9c;
+ float: right;
+}
+
+#toplinks ul
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 14px;
+ list-style: none;
+ line-height: 14px;
+ margin-left: 10px;
+}
+
+#toplinks ul li
+{
+ float: left;
+ margin-right: 54px;
+}
+
+#toplinks ul li.search
+{
+ float: right;
+ margin: -6px -0px 0px -20px;
+}
+
+#toplinks ul li a
+{
+ text-decoration: none;
+  color: #002d3f;
+}
+
+#toplinks ul li a:hover
+{
+ color: #e98300;
+}
+
+.toplogo
+{
+ margin: 15px;	
+}
+
+#maincontent
+{
+	display: block;
+	width: 100px;
+	height: 100px;
+	background: white;
+	position: relative;
+	top: 0px;
+	width: 698px;
+	height: auto;
+	webkit-box-shadow: 3px 3px 5px #9a9b9c;
+ 	box-shadow: 3px 3px 5px #9a9b9c;
+	float: right;
+	margin-top: 0px;
+	margin-bottom: 25px;
+	border-right: solid 1px #DFDFDF;
+	border-top: solid 1px #DFDFDF;
+	border-left: solid 1px #DFDFDF;
+	padding: 35px 30px 40px 30px; 
+min-height:800px;
+}
+
+h1
+{
+font-family: 'Arimo', sans-serif;
+font-size: 22px;
+font-weight: bold;
+color: #002d3f;
+}
+
+
+p
+
+{
+font-family: 'Arimo', sans-serif;
+font-size: 12px;
+color: black;
+line-height: 18px;
+}
+
+h2
+
+{
+font-family: 'Arimo', sans-serif;
+ font-size: 12px;
+color: white;
+font-weight: bold;
+}
+
+#relatedproducts 
+{
+float: right;
+position: relative;
+}
+
+#relatedproducts select
+{
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url(../images/select-arrow.png), 
+    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: 12px;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;	
+  max-width: 250px;
+}
+
+#lefthandquote {
+    color: #4D4F53;
+    display: block;
+    font-family: 'Amaranth',sans-serif;
+    font-size: 20px;
+    line-height: 35px;
+    margin: 60px 0 80px;
+    position: absolute;
+  /*top: 520px;*/  
+    width: 220px;
+    z-index: -3;
+}
+
+#lefthandquote span
+{
+color: #e98300;	
+text-shadow: #9a9b9c 3px 3px 4px;
+font-size: 50px;
+line-height: 20px;
+padding-top: 30px;
+}
+
+#lefthandquote p
+{
+	font-family: 'Arimo', sans-serif;
+font-size: 12px;
+font-weight: bold;
+margin-top: 15px;
+margin-left: 28px;
+color: #4d4f53;
+line-height: 22px;
+}
+
+#lefthandquote p a
+{
+color: #002d3f;	
+text-decoration: underline;
+}
+
+#lefthandquotemark
+{
+color: #e98300;	
+text-shadow: #9a9b9c 3px 3px 4px;
+font-size: 30px;
+line-height: 20px;
+margin-top: 116px;	
+margin-left: 168px;
+position: absolute;
+}
+
+#lefthandquotemark table td 
+{
+  font-size  : 20px;
+    line-height: 35px;
+}
+
+.lefthandquotemarkfont
+{
+  font-size  : 20px;
+    line-height: 35px;
+}
+
+
+/* developer changes  */
+.tbcameraspicker
+{
+   padding: 4px 12px 11px;
+}
+
+
+.tbcameraspicker td
+{
+	font-family: 'Arimo', sans-serif;
+ font-size: 11px;
+color: white;
+padding: 4px;
+}
+
+#dnn_LeftPane{width:243px;}
+
+#dnn_ctrsearch_txtsearch {
+	background: #fcfff4; /* Old browsers */
+	background: -moz-linear-gradient(top, #fcfff4 0%, #ffffff 36%, #eaeaea 95%, #f2f7f9 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfff4), color-stop(36%,#ffffff), 							color-stop(95%,#eaeaea), color-stop(100%,#f2f7f9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fcfff4 0%,#ffffff 36%,#eaeaea 95%,#f2f7f9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fcfff4 0%,#ffffff 36%,#eaeaea 95%,#f2f7f9 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #fcfff4 0%,#ffffff 36%,#eaeaea 95%,#f2f7f9 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #fcfff4 0%,#ffffff 36%,#eaeaea 95%,#f2f7f9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#f2f7f9',GradientType=0 ); /* 	IE6-9 */
+	}
+

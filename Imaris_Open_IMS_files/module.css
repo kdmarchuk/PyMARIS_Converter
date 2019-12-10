@@ -1,0 +1,193 @@
+.bp_leftNavigation {
+min-height: 225px;
+background: rgb(4, 32, 37);
+background: -moz-linear-gradient(left, rgb(1, 1, 70) 1%, rgb(28, 38, 116) 100%);
+background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgb(1, 1, 70)), color-stop(100%,rgb(28, 38, 70)));
+background: -webkit-linear-gradient(left, rgb(1, 1, 70) 1%,rgb(28, 38, 116) 100%);
+background: -o-linear-gradient(left, rgb(1, 1, 70) 1%,rgb(28, 38, 116) 100%);
+background: -ms-linear-gradient(left, rgb(1, 1, 70) 1%,rgb(28, 38, 116) 100%);
+background: linear-gradient(to right, rgb(1, 1, 70) 1%,rgb(28, 38, 116) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010146', endColorstr='#1C2674',GradientType=1 );
+border-radius: 0 0 0 0.6em;
+box-shadow: -1px 3px 5px 9a9b9c;
+display: block;
+height: auto;
+width: 240px;
+}
+
+	.bp_leftNavigation p {
+		color: white;
+		font-family: 'Arimo',sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.bp_leftNavigation ul li {
+		font-family: 'Arimo',sans-serif;
+		font-size: 12px;
+		line-height: 20px;
+		list-style-type: disc;
+	}
+
+		.bp_leftNavigation ul li a {
+			color: white;
+			cursor: pointer;
+		}
+
+.icon-forum {
+	background: url("/images/home-icon-forum.png") no-repeat scroll left top transparent;
+	color: white;
+	display: block;
+	float: left;
+	font-family: 'Arimo',sans-serif;
+	font-size: 9px;
+	height: 28px;
+	padding-top: 47px;
+	text-align: center;
+	width: 58px;
+}
+
+.icon-marketplace {
+	background: url("/images/home-icon-marketplace.png") no-repeat scroll left top transparent;
+	color: white;
+	display: block;
+	float: left;
+	font-family: 'Arimo',sans-serif;
+	font-size: 9px;
+	height: 28px;
+	padding-top: 47px;
+	text-align: center;
+	width: 58px;
+	margin-left: 2px;
+}
+
+
+
+.rl_resultItemImage {
+	float: left;
+	width: 27px;
+	height: 27px;
+	margin-right: 10px;
+	overflow: hidden;
+	border: 1px solid silver;
+}
+
+	.rl_resultItemImage img {
+		height: 27px;
+		min-width: 27px;
+	}
+
+.rl_autocompleteItem {
+	height: 30px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #FFFFFF !important;
+	margin: 0 !important;
+}
+
+	.rl_autocompleteItem.ui-state-hover {
+		background: #DFDFDF !important;
+		border: 1px solid #C0C0C0 !important;
+		cursor: pointer;
+	}
+
+.rl_resultItemDescription {
+	float: left;
+	height: 30px;
+	width: 300px;
+	font-family: arimo, sans-serif;
+}
+
+.rl_resultItemDescriptionHeader {
+	font-size: 10px;
+	font-weight: bold;
+	font-family: Verdana;
+}
+
+	.rl_resultItemDescriptionHeader a, .rl_resultItemDescriptionHeader a:active, .rl_resultItemDescriptionHeader a:visited, .rl_resultItemDescriptionHeader a:hover {
+		color: black;
+		text-decoration: none;
+	}
+
+.rl_resultItemDescriptionBody {
+	font-size: 10px;
+	height: 15px;
+	color: #707070;
+}
+
+	.rl_resultItemDescriptionBody a, .rl_resultItemDescriptionBody a:active, .rl_resultItemDescriptionBody a:visited, .rl_resultItemDescriptionBody a:hover {
+		color: #707070;
+		text-decoration: none;
+	}
+
+ul.ui-autocomplete {
+	width: 380px;
+}
+
+	ul.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+.rl_searchHolder {
+	margin: 0px 0px 0px 20px;
+	padding: 10px 0 20px 0;
+}
+
+	.rl_searchHolder input[type="text"] {
+		width: 170px;
+	}
+
+.rl_searchButton {
+	text-decoration: none;
+	border: solid 1px #ffffff;
+	margin-top: -2px;
+	padding: 2px;
+	cursor: pointer;
+}
+
+
+.icon-upload
+{
+	 background: url('/images/home-icon-upload.png') top left no-repeat;
+	 display: block;
+	 width: 45px;
+	 height: 28px;
+	 float: left;
+	 padding-top: 47px;
+	 text-align: center;
+	 font-family: 'Arimo', sans-serif;
+	 font-size: 9px;
+	 color: white;
+	 text-decoration: none;
+	 	 margin-left: 2px;
+}
+
+
+.icon-request
+{
+	 background: url('/images/home-icon-request.png') top left no-repeat;
+	 display: block;
+	 width: 55px;
+	 height: 28px;
+	 float: left;
+	 padding-top: 47px;
+	 text-align: center;
+	 font-family: 'Arimo', sans-serif;
+	 font-size: 9px;
+	 color: white;
+	 text-decoration: none;
+	 	 margin-left: 2px;
+}
+
+	.icon-forum:hover, .icon-marketplace:hover, .icon-upload:hover, .icon-request:hover  {
+		cursor: pointer;
+		margin-top: -3px;
+		padding-top: 50px;
+		text-decoration: none;
+	}
+	
+	
+	#imarislandingpage { width: 200px; }
+	
+	#imarislandingpage { width:195px \0/IE9; }  /* IE9 + IE10pp4 */
