@@ -1,17 +1,13 @@
-from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QAbstractItemView, QMessageBox, QGraphicsRectItem, QFileDialog
-#from PyQt5.QtCore import pyqtSlot, Qt, QRectF, QCoreApplication
-#from PyQt5.QtGui import QPixmap, QColor
-import sys
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import *
 from pygellan.magellan_data import MagellanDataset
 import pathlib
 import time
-import threading_PyMARIS_Converter
 import numpy as np
 
-from PyMARIS_Converter_ui import Ui_MainWindow
+from PyMARIS_Converter.PyMARIS_Converter_ui import Ui_MainWindow
 import threading
-import create_h5
+from PyMARIS_Converter import create_h5
 
 
 class MainView(QMainWindow):
